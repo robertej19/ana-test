@@ -80,6 +80,18 @@ class ep_test {
 				println "wvec is" + wvec
 				println "profi is " + profi
 
+				def esec = (0..<scib.rows()).find{scib.getShort('pindex',it)==iele}?.with{scib.getByte('sector',it)}
+				def psec = (0..<scib.rows()).find{scib.getShort('pindex',it)==ipro}?.with{scib.getByte('sector',it)}
+				if(psec==0) {
+				  psec = Math.floor(profi/60).toInteger() +2
+				  if(psec==7) psec=1
+				}
+
+				println "electron sector is " + esec
+				def isep0 = epx.mass2()<1 && wvec.mass()>2
+				println "i sep 0 is " + isep0
+
+
 			}
 			return ihel
 		}
