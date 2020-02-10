@@ -18,11 +18,11 @@ MyMods.enable()
 
 def outname = args[0].split('/')[-1]
 
-def processors = [new ep_test()]
+def processor = [new ep_test()]
 
 def evcount = new AtomicInteger()
 def save = {
-  processors.each{
+  processor.each{
     def out = new TDirectory()
     out.mkdir("/root")
     out.cd("/root")
@@ -44,8 +44,9 @@ GParsPool.withPool 12, {
 
     while(reader.hasEvent()) {
       evcount.getAndIncrement()
+      println "event count: "+evcount.get()
       def event = reader.getNextEvent()
-      processors.each{it.processEvent(event)}
+      processor.each{it.processEvent(event)}
     }
 
     reader.close()
