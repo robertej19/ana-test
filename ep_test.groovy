@@ -126,22 +126,7 @@ class ep_test {
                  //hists.computeIfAbsent("${prefix}hdpx:$psec:$pdet",hmissp).fill(epggx.px())
                  //hists.computeIfAbsent("${prefix}hdpy:$psec:$pdet",hmissp).fill(epggx.py())
                  //hists.computeIfAbsent("${prefix}hdpz:$psec:$pdet",hmissp).fill(epggx.pz())
-                 hists.computeIfAbsent("${prefix}hmisse:$psec:$pdet",hmisse0).fill(epggx.e())
-                 hists.computeIfAbsent("${prefix}htheta:$psec:$pdet",htheta).fill(thetaXPi)
-                 hists.computeIfAbsent("${prefix}hdt:$psec:$pdet",hepx).fill(tt0-tt1)
-                 hists.computeIfAbsent("${prefix}hdtprop:$psec:$pdet",hepxmom).fill(pro.p(), tt0-tt1)
-                 hists.computeIfAbsent("${prefix}hepx:$psec:$pdet",hepx0).fill(epx.mass2())
-                 hists.computeIfAbsent("${prefix}hepxprop:$psec:$pdet",hepxmom).fill(pro.p(), epx.mass2())
-                 hists.computeIfAbsent("${prefix}hpi0mom",hmom).fill(gg.p())
-                 hists.computeIfAbsent("${prefix}hpi0mom:$pdet",hmom).fill(gg.p())
-                 hists.computeIfAbsent("${prefix}helemom:$pdet",hmom).fill(ele.p())
-                 hists.computeIfAbsent("${prefix}hpromom:$pdet",hmom).fill(pro.p())
-                 hists.computeIfAbsent("${prefix}hepxE:$pdet",hmom).fill(epx.e())
-                 hists.computeIfAbsent("${prefix}hepxT:$pdet",hmom).fill(Math.sqrt(epx.px()*epx.px() + epx.py()*epx.py()))
-                 hists.computeIfAbsent("${prefix}hepxZ:$pdet",hmom).fill(epx.pz())
-                 hists.computeIfAbsent("${prefix}hgg",hgg).fill(gg.mass())
-                 //hists.computeIfAbsent("${prefix}hgg:$ihel",hgg).fill(gg.mass())
-                 hists.computeIfAbsent("${prefix}hggpi0mom",hggpi0mom).fill(gg.p(), gg.mass())
+	       
               }
               return ispi0
             }
