@@ -99,6 +99,9 @@ def processEvent(event,hhel,hphi) {
 			   def qvec = beam-ele
 			   def epx = beam+target-ele-pro
 
+			   println "qvec is " + qvec
+			   println "qvec comp is " + -qvec.mass2()
+
 			   def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
 
 			   def profi = Math.toDegrees(pro.phi())
