@@ -31,12 +31,23 @@ class ep_test {
 			def ihel = evb.getByte('helicity',0)
 			println "ihel is "+ihel
 
-			def ieps = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
+			def index_of_electrons_and_protons = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
 			.collectMany{iele->(0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
 			}
-			println "ieps is "+ieps
+			println "index_of_electrons_and_protons "+index_of_electrons_and_protons
+
+			def ipi0s = (0..<partb.rows()-1).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
+		          .findAll{ig1->'xyz'.collect{partb.getFloat("p$it",ig1)**2}.sum()>0.16}
+		          .collectMany{ig1->
+		          (ig1+1..<partb.rows()).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
+		          .findAll{ig2->'xyz'.collect{partb.getFloat("p$it",ig2)**2}.sum()>0.16}
+		          .collect{ig2->[ig1,ig2]}
+		          }
+
 
 			return ihel
+
+
 		}
 	}
 }
