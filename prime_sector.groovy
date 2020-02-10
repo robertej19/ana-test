@@ -26,17 +26,10 @@ def beam = LorentzVector.withPID(11,0,0,10.6)
 def target = LorentzVector.withPID(2212,0,0,0)
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 
-for (int i=0; i < 50; i++) {
-  def event = reader.getNextEvent()
 
-  if (event.hasBank("REC::Particle")){
-    event_start_time = event.getBank("REC::Event").getFloat("startTime")
-    println(event_start_time)
+def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 
-    }
-
-    def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
-    //def processEvent(event) {
+def processEvent(event) {
 	    if(banknames.every{event.hasBank(it)}) {
 		    def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
 		    def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
@@ -45,7 +38,12 @@ for (int i=0; i < 50; i++) {
 
 	}
 
-//}
+}
+
+
+for (int i=0; i < 50; i++) {
+  def event = reader.getNextEvent()
+  processEvent(event)
 }
 
 reader.close()
