@@ -72,7 +72,7 @@ for (int i=0; i < 50; i++) {
 reader.close()
 
 def run = "testrun5036"
-Directory out = new TDirectory()
+TDirectory out = new TDirectory()
 out.mkdir('/'+run)
 out.cd('/'+run)
 
