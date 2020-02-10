@@ -37,6 +37,8 @@ def processEvent(event) {
 		    def ihel = evb.getByte('helicity',0)
 		   println "ihel is "+ihel
 
+		   hhel.fill(ihel)
+
 	}
 
 }
@@ -48,3 +50,12 @@ for (int i=0; i < 50; i++) {
 }
 
 reader.close()
+
+def run = "testrun5036"
+Directory out = new TDirectory()
+out.mkdir('/'+run)
+out.cd('/'+run)
+
+out.addDataSet(hhel)
+
+out.writeFile(run+'.hipo')
