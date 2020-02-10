@@ -43,8 +43,7 @@ class ep_test {
 		          .findAll{ig2->'xyz'.collect{partb.getFloat("p$it",ig2)**2}.sum()>0.16}
 		          .collect{ig2->[ig1,ig2]}
 		          }
-
-
+			println "index of pions is " + ipi0s
 			return ihel
 
 
