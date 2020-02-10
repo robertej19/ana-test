@@ -120,7 +120,14 @@ def processEvent(event,hhel,hphi,hq2) {
 }
 
 
-for (int i=0; i < 50000; i++) {
+def evcount = new AtomicInteger()
+evcount.set(0)
+while(reader.hasEvent()) {
+	evcount.getAndIncrement()
+          if(evcount.get() % 10000 == 0){
+          	println "event count: "+evcount.get()/10000 + "0 K"
+    	}
+//for (int i=0; i < 50000; i++) {
   def event = reader.getNextEvent()
   processEvent(event,hhel,hphi,hq2)
 }
