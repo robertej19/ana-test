@@ -93,8 +93,8 @@ class ep_test {
           psec = Math.floor(profi/60).toInteger() +2
           if(psec==7) psec=1
         }
-        println "esec " + esec
-        println "psec " + psec
+        //println "esec " + esec
+        //println "psec " + psec
         def isep0 = epx.mass2()<1 && wvec.mass()>2
 
         def pi0s = ipi0s.collect{ig1,ig2->
