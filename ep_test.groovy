@@ -24,6 +24,12 @@ class ep_test {
   def hq2 = {new H1F("$it","$it",200,0,10)}
   def hfi = {new H1F("$it","$it",200,-360,360)}
 
+  def hepx0 = {new H1F("$it","$it",200,-1,2)}
+  def hepx = {new H1F("$it","$it",200,-0.7,0.7)}
+  def hepxmom = {new H2F("$it","$it",200,0,4,200,-0.7,0.7)}
+  def hepxth = {new H2F("$it","$it",300,0,60,200,-0.7,0.7)}
+
+
    def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
   def processEvent(event) {
     if(banknames.every{event.hasBank(it)}) {
