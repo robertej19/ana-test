@@ -16,6 +16,9 @@ import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 import java.nio.ByteBuffer
 
+MyMods.enable()
+/////////////////
+
 def reader = new HipoDataSource()
 reader.open(args[0])
 
