@@ -30,12 +30,12 @@ class ep_test {
 			def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
 			def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
 			def ihel = evb.getByte('helicity',0)
-			println "ihel is "+ihel
+			//println "ihel is "+ihel
 
 			def index_of_electrons_and_protons = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
 				.collectMany{iele->(0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
 			}
-			println "index_of_electrons_and_protons "+index_of_electrons_and_protons
+			//println "index_of_electrons_and_protons "+index_of_electrons_and_protons
 
 			def index_of_pions = (0..<partb.rows()-1).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
 				.findAll{ig1->'xyz'.collect{partb.getFloat("p$it",ig1)**2}.sum()>0.16}
@@ -44,14 +44,14 @@ class ep_test {
 				.findAll{ig2->'xyz'.collect{partb.getFloat("p$it",ig2)**2}.sum()>0.16}
 				.collect{ig2->[ig1,ig2]}
 			}
-			println "index of pions is " + index_of_pions
+			//println "index of pions is " + index_of_pions
 
 			def isep0s = index_of_electrons_and_protons.findAll{iele,ipro->
 				def ele = LorentzVector.withPID(11,*['px','py','pz'].collect{partb.getFloat(it,iele)})
 				def pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{partb.getFloat(it,ipro)})
 				//println "first electron is"+ele
 				if(event.hasBank("MC::Particle")) {
-					println "Event has MC Particle bank!"
+					//println "Event has MC Particle bank!"
 					def mcb = event.getBank("MC::Particle")
 					def mfac = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 3.2 : 2.5
 
@@ -78,8 +78,8 @@ class ep_test {
 				def profi = Math.toDegrees(pro.phi())
 				if(profi<0) profi+=360
 
-				println "wvec is" + wvec
-				println "profi is " + profi
+				//println "wvec is" + wvec
+				//println "profi is " + profi
 
 				def esec = (0..<scib.rows()).find{scib.getShort('pindex',it)==iele}?.with{scib.getByte('sector',it)}
 				def psec = (0..<scib.rows()).find{scib.getShort('pindex',it)==ipro}?.with{scib.getByte('sector',it)}
@@ -88,9 +88,9 @@ class ep_test {
 				  if(psec==7) psec=1
 				}
 
-				println "electron sector is " + esec
+				//println "electron sector is " + esec
 				def isep0 = epx.mass2()<1 && wvec.mass()>2
-				println "i sep 0 is " + isep0
+				//println "i sep 0 is " + isep0
 
 
 			}
