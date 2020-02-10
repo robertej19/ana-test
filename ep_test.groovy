@@ -30,12 +30,13 @@ class ep_test {
 			def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
 			def ihel = evb.getByte('helicity',0)
 			println "ihel is "+ihel
-			return ihel
 
 			def ieps = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
 			.collectMany{iele->(0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
 			}
 			println "ieps is "+ieps
+
+			return ihel
 		}
 	}
 }
