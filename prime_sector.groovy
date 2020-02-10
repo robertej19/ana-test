@@ -43,8 +43,9 @@ def reader = new HipoDataSource()
 reader.open(args[0])
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",250,-50,400)
+def hq2 = new H1F("Hist_q2","Q^2 Distribution",100,0,12)
 
-def processEvent(event,hhel,hphi) {
+def processEvent(event,hhel,hphi,hq2) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
@@ -99,8 +100,8 @@ def processEvent(event,hhel,hphi) {
 			   def qvec = beam-ele
 			   def epx = beam+target-ele-pro
 
-			   println "qvec is " + qvec
-			   println "qvec comp is " + -qvec.mass2()
+			   //println "qvec is " + qvec
+			   //println "qvec comp is " + -qvec.mass2()
 
 			   def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
 
@@ -109,6 +110,7 @@ def processEvent(event,hhel,hphi) {
 
 			   hhel.fill(ihel)
 			   hphi.fill(profi)
+			   hq2.fill(-qvec.mass2())
 
 		   }
 
@@ -120,7 +122,7 @@ def processEvent(event,hhel,hphi) {
 
 for (int i=0; i < 50000; i++) {
   def event = reader.getNextEvent()
-  processEvent(event,hhel,hphi)
+  processEvent(event,hhel,hphi,hq2)
 }
 
 reader.close()
@@ -132,5 +134,6 @@ out.cd('/'+run)
 
 out.addDataSet(hhel)
 out.addDataSet(hphi)
+out.addDataSet(hq2)
 
 out.writeFile(run+'.hipo')
