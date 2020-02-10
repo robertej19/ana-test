@@ -45,7 +45,7 @@ class ep_test {
 			}
 			println "index of pions is " + index_of_pions
 
-			def isep0s = ieps.findAll{iele,ipro->
+			def isep0s = index_of_electrons_and_protons.findAll{iele,ipro->
 				def ele = LorentzVector.withPID(11,*['px','py','pz'].collect{partb.getFloat(it,iele)})
 				def pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{partb.getFloat(it,ipro)})
 				prinln "first electron is"+ele
