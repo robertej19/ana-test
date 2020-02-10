@@ -18,7 +18,7 @@ MyMods.enable()
 
 def outname = args[0].split('/')[-1]
 
-def processors = [new eppi0_mon()]
+def processors = [new ep_test()]
 
 def evcount = new AtomicInteger()
 def save = {

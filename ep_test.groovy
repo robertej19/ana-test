@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 import java.nio.ByteBuffer
 
 
-class eppi0_mon {
+class ep_test {
   def hists = new ConcurrentHashMap()
 
   def beam = LorentzVector.withPID(11,0,0,10.6)
