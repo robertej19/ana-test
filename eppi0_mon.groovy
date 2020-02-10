@@ -1,3 +1,5 @@
+#!/usr/bin/groovy
+
 import org.jlab.detector.base.DetectorType
 import org.jlab.clas.physics.LorentzVector
 import org.jlab.clas.physics.Vector3
