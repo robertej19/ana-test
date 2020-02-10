@@ -30,22 +30,7 @@ class ep_test {
       def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
       def ihel = evb.getByte('helicity',0)
 
-      def ieps = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
-        .collectMany{iele->
-          (0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
-        }
-
-      def ipi0s = (0..<partb.rows()-1).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
-        .findAll{ig1->'xyz'.collect{partb.getFloat("p$it",ig1)**2}.sum()>0.16}
-        .collectMany{ig1->
-          (ig1+1..<partb.rows()).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
-            .findAll{ig2->'xyz'.collect{partb.getFloat("p$it",ig2)**2}.sum()>0.16}
-            .collect{ig2->[ig1,ig2]}
-        }
-
       println "ihel is "+ihel
-      println "ieps is "+ieps
-      println "ipi0s is " +ipi0s
+      return ihel
 }
 }
-        
