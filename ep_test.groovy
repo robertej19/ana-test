@@ -95,7 +95,6 @@ class ep_test {
         }
         println "esec " + esec
         println "psec " + psec
-        def isep0 = epx.mass2()<1 && wvec.mass()>2
 
         def pi0s = ipi0s.collect{ig1,ig2->
           def g1 = LorentzVector.withPID(22,*['px','py','pz'].collect{partb.getFloat(it,ig1)})
@@ -123,8 +122,6 @@ class ep_test {
           return false
         }
 
-        return isep0
-      }
 
       // def goodgammas = ele.vect().theta(g1.vect())>8 && ele.vect().theta(g2.vect())>8
       // def prelims = goodgammas && epx.mass2()<1 && g1stat>=2000 && g2stat>=2000 && fgg>0.05 && fgg<0.3 && epggx.e()<1 && ftheta<16
