@@ -42,7 +42,7 @@ MyMods.enable()
 def reader = new HipoDataSource()
 reader.open(args[0])
 //def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
-def hhel = new H1F("Hist_ihel","helicity",250,-50,400)
+def hphi = new H1F("Hist_phi","Phi Distribution",250,-50,400)
 
 def processEvent(event,hhel) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
@@ -104,8 +104,8 @@ def processEvent(event,hhel) {
 			   def profi = Math.toDegrees(pro.phi())
 			   if(profi<0) profi+=360
 
-
-			   hhel.fill(profi)
+			   hhel.fill(ihel)
+			   hphi.fill(profi)
 
 		   }
 
@@ -128,5 +128,6 @@ out.mkdir('/'+run)
 out.cd('/'+run)
 
 out.addDataSet(hhel)
+out.addDataSet(hphi)
 
 out.writeFile(run+'.hipo')
