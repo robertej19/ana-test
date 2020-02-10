@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "Current date: $now"
 VAR1='"'
 MESS="$1"
 VAR3="$VAR1$MESS$VAR1"
