@@ -42,13 +42,11 @@ MyMods.enable()
 def reader = new HipoDataSource()
 reader.open(args[0])
 
-def beam = LorentzVector.withPID(11,0,0,10.6)
-def target = LorentzVector.withPID(2212,0,0,0)
-def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
-
-
-
 def processEvent(event,hhel) {
+	def beam = LorentzVector.withPID(11,0,0,10.6)
+	def target = LorentzVector.withPID(2212,0,0,0)
+	def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
+
 	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 
 	    if(banknames.every{event.hasBank(it)}) {
