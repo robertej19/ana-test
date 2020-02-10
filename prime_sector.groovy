@@ -15,6 +15,26 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 import java.nio.ByteBuffer
+import java.io.*
+import java.util.*
+import org.jlab.groot.data.TDirectory
+import org.jlab.groot.data.GraphErrors
+import org.jlab.groot.group.DataGroup
+import org.jlab.groot.data.H1F
+import org.jlab.groot.data.H2F
+import org.jlab.groot.math.F1D
+import org.jlab.groot.fitter.DataFitter
+import org.jlab.io.base.DataBank
+import org.jlab.io.base.DataEvent
+import org.jlab.io.hipo.HipoDataSource
+import org.jlab.io.hipo.HipoDataSync
+import org.jlab.detector.base.DetectorType
+import org.jlab.clas.physics.Vector3
+import org.jlab.clas.physics.LorentzVector
+import org.jlab.groot.base.GStyle
+import org.jlab.groot.graphics.EmbeddedCanvas
+import java.text.SimpleDateFormat
+import java.time.Instant
 
 MyMods.enable()
 /////////////////
