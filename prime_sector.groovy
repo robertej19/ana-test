@@ -41,7 +41,7 @@ MyMods.enable()
 
 def reader = new HipoDataSource()
 reader.open(args[0])
-//def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
+def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",250,-50,400)
 
 def processEvent(event,hhel) {
