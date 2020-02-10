@@ -30,22 +30,6 @@ for (int i=0; i < 50; i++) {
   def event = reader.getNextEvent()
 
   if (event.hasBank("REC::Particle")){
-
-    def event_scint = event.getBank("REC::Scintillator")
-
-    def pind_sarray = event_scint.getShort('pindex')*.toInteger()
-    def sect_sarray_l = event_scint.getByte('layer')
-
-    def sect_sarray = event_scint.getByte('sector')
-    def stati = event.getBank("REC::Particle").getInt('status')
-
-    def secs = [event_scint.getShort('pindex')*.toInteger(), event_scint.getByte('sector')].transpose().collectEntries()
-
-
-    def sec_scint = event_scint.getFloat('time')
-
-    def dete = event_scint.getInt('detector')
-
     event_start_time = event.getBank("REC::Event").getFloat("startTime")
     println(event_start_time)
 
