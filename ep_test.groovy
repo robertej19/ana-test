@@ -15,14 +15,14 @@ import java.nio.ByteBuffer
 
 
 class ep_test {
-	def hists = new ConcurrentHashMap()
+	//def hists = new ConcurrentHashMap()
 
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
 	def hw = {new H1F("$it","$it",200,0,5)}
 	def hq2 = {new H1F("$it","$it",200,0,10)}
-	def hhel = {new H1F("$it","$it",7,-2,2)}
+	def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 
 	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 	def processEvent(event) {
