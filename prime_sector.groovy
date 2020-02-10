@@ -64,7 +64,7 @@ def processEvent(event,hhel) {
 }
 
 
-for (int i=0; i < 5000; i++) {
+for (int i=0; i < 50000; i++) {
   def event = reader.getNextEvent()
   processEvent(event,hhel)
 }
