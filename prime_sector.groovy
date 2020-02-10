@@ -133,8 +133,9 @@ if (smalltest == 0){
 }
 else {
 	for (int i=0; i < smalltest; i++) {
-	def event = reader.getNextEvent()
-	processEvent(event,hhel,hphi,hq2)
+		def event = reader.getNextEvent()
+		processEvent(event,hhel,hphi,hq2)
+	}
 }
 
 reader.close()
