@@ -123,12 +123,6 @@ class ep_test {
           return false
         }
 
-        [['',true],['gg/',pi0s.any()]].findAll{it[1]}.each{prefix,test->
-          hists.computeIfAbsent("${prefix}hw:$psec:$pdet",hw).fill(wvec.mass())
-          hists.computeIfAbsent("${prefix}hq2:$psec:$pdet",hq2).fill(-qvec.mass2())
-          hists.computeIfAbsent("${prefix}hepx:$psec:$pdet",hepx0).fill(epx.mass2())
-        }
-
         return isep0
       }
 
