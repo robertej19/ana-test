@@ -41,7 +41,8 @@ MyMods.enable()
 
 def reader = new HipoDataSource()
 reader.open(args[0])
-def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
+//def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
+def hhel = new H1F("Hist_ihel","helicity",25,-500,500)
 
 def processEvent(event,hhel) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
