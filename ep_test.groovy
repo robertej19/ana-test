@@ -15,23 +15,27 @@ import java.nio.ByteBuffer
 
 
 class ep_test {
-  def hists = new ConcurrentHashMap()
+	def hists = new ConcurrentHashMap()
 
-  def beam = LorentzVector.withPID(11,0,0,10.6)
-  def target = LorentzVector.withPID(2212,0,0,0)
+	def beam = LorentzVector.withPID(11,0,0,10.6)
+	def target = LorentzVector.withPID(2212,0,0,0)
 
-  def hw = {new H1F("$it","$it",200,0,5)}
-  def hq2 = {new H1F("$it","$it",200,0,10)}
+	def hw = {new H1F("$it","$it",200,0,5)}
+	def hq2 = {new H1F("$it","$it",200,0,10)}
 
-   def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
-  def processEvent(event) {
-    if(banknames.every{event.hasBank(it)}) {
-      def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
-      def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
-      def ihel = evb.getByte('helicity',0)
+	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
+	def processEvent(event) {
+		if(banknames.every{event.hasBank(it)}) {
+			def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
+			def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
+			def ihel = evb.getByte('helicity',0)
+			println "ihel is "+ihel
+			return ihel
 
-      println "ihel is "+ihel
-      return ihel
-}
-}
+			def ieps = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
+			.collectMany{iele->(0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
+			}
+			println "ieps is "+ieps
+		}
+	}
 }
