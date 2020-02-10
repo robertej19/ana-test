@@ -22,6 +22,7 @@ class ep_test {
 
 	def hw = {new H1F("$it","$it",200,0,5)}
 	def hq2 = {new H1F("$it","$it",200,0,10)}
+	def hhel = {new H1F("$it","$it",7,-2,2)}
 
 	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 	def processEvent(event) {
@@ -93,6 +94,7 @@ class ep_test {
 
 
 			}
+			hists.computeIfAbsent("${prefix}hhel",hmisse0).fill(ihel)
 			return ihel
 		}
 	}
