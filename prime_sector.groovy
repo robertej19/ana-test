@@ -34,6 +34,18 @@ for (int i=0; i < 50; i++) {
     println(event_start_time)
 
     }
+
+    def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
+    //def processEvent(event) {
+	    if(banknames.every{event.hasBank(it)}) {
+		    def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
+		    def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
+		    def ihel = evb.getByte('helicity',0)
+		   println "ihel is "+ihel
+
+	}
+
+//}
 }
 
 reader.close()
