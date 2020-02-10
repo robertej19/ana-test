@@ -44,7 +44,9 @@ GParsPool.withPool 12, {
 
     while(reader.hasEvent()) {
       evcount.getAndIncrement()
-      println "event count: "+evcount.get()
+      if(evcount.get() % 1000 == 0){
+      	println "event count: "+evcount.get()
+	}
       def event = reader.getNextEvent()
       processor.each{it.processEvent(event)}
     }
