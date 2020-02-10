@@ -137,4 +137,3 @@ class ep_test {
       // def finals = prelims && ftheta<2 && fmisse<0.9 && epx.mass2().abs()<0.7
     }
   }
-}
