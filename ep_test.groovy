@@ -116,18 +116,6 @@ class ep_test {
               def procalc = beam+target-ele-gg
               def tt1 = -(procalc-target).mass2()
 
-              [['gg/',ispi0],['gg/ep0/',ispi0 && isep0],
-               ['gg/ep0/theta.gt.2/',ispi0 && isep0 && thetaXPi>2],
-               ['gg/ep0/theta.lt.2/',ispi0 && isep0 && thetaXPi<2],
-               ['gg/ep0/theta.lt.1/',ispi0 && isep0 && thetaXPi<1],
-               ['gg/ep0/dpt/',ispi0 && isep0 && dpt0],
-               ['gg/ep0/dmisse/',ispi0 && isep0 && dmisse0],
-               ['gg/ep0/dmisse/dpt/',ispi0 && isep0 && dmisse0 && dpt0],
-               ['',true]].findAll{it[1]}.each{prefix,test->
-                 //hists.computeIfAbsent("${prefix}hdpx:$psec:$pdet",hmissp).fill(epggx.px())
-                 //hists.computeIfAbsent("${prefix}hdpy:$psec:$pdet",hmissp).fill(epggx.py())
-                 //hists.computeIfAbsent("${prefix}hdpz:$psec:$pdet",hmissp).fill(epggx.pz())
-
               }
               return ispi0
             }

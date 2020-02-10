@@ -24,10 +24,11 @@ def evcount = new AtomicInteger()
 def save = {
   processor.each{
     def out = new TDirectory()
-    out.mkdir("/root")
-    out.cd("/root")
+    out.mkdir("/base")
+    out.cd("/base")
     it.hists.each{out.writeDataSet(it.value)}
     def clasname = it.getClass().getSimpleName()
+    println "clasname is "+clasname
     out.writeFile("test_${clasname}_${outname}")
   }
   println "event count: "+evcount.get()
@@ -45,7 +46,7 @@ GParsPool.withPool 12, {
     while(reader.hasEvent()) {
       evcount.getAndIncrement()
       if(evcount.get() % 10000 == 0){
-      	println "event count: "+evcount.get()/10000 + " 0K"
+      	println "event count: "+evcount.get()/10000 + "0 K"
 	}
       def event = reader.getNextEvent()
       processor.each{it.processEvent(event)}
