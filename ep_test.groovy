@@ -48,7 +48,7 @@ class ep_test {
 			def isep0s = index_of_electrons_and_protons.findAll{iele,ipro->
 				def ele = LorentzVector.withPID(11,*['px','py','pz'].collect{partb.getFloat(it,iele)})
 				def pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{partb.getFloat(it,ipro)})
-				println "first electron is"+ele
+				//println "first electron is"+ele
 				if(event.hasBank("MC::Particle")) {
 					println "Event has MC Particle bank!"
 					def mcb = event.getBank("MC::Particle")
@@ -61,12 +61,24 @@ class ep_test {
 
 					ele = LorentzVector.withPID(11,*['px','py','pz'].collect{mcb.getFloat(it,0) + (partb.getFloat(it,iele)-mcb.getFloat(it,0))*mfac})
 					pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{profac*(mcb.getFloat(it,1) + (partb.getFloat(it,ipro)-mcb.getFloat(it,1))*mfac)})
-					prinln "second electron is"+ele
+					//println "second electron is"+ele
 					def evec = new Vector3()
 					evec.setMagThetaPhi(ele.p(), ele.theta(), ele.phi())
 					def pvec = new Vector3()
 					pvec.setMagThetaPhi(pro.p(), pro.theta(), pro.phi())
 				}
+
+				def wvec = beam+target-ele
+				def qvec = beam-ele
+				def epx = beam+target-ele-pro
+
+				def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
+
+				def profi = Math.toDegrees(pro.phi())
+				if(profi<0) profi+=360
+
+				println "wvec is" + wvec
+				println "profi is " + profi
 
 			}
 			return ihel
