@@ -79,8 +79,8 @@ class ep_test {
         def qvec = beam-ele
         def epx = beam+target-ele-pro
 
-        println "wvec is " + wvec
-        println "qvec " + qvec
+        //println "wvec is " + wvec
+        //println "qvec " + qvec
 
         def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
 
@@ -126,7 +126,7 @@ class ep_test {
                  //hists.computeIfAbsent("${prefix}hdpx:$psec:$pdet",hmissp).fill(epggx.px())
                  //hists.computeIfAbsent("${prefix}hdpy:$psec:$pdet",hmissp).fill(epggx.py())
                  //hists.computeIfAbsent("${prefix}hdpz:$psec:$pdet",hmissp).fill(epggx.pz())
-	       
+
               }
               return ispi0
             }
