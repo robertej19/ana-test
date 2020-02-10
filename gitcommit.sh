@@ -1,4 +1,5 @@
 #!/bin/bash
+now=$(date)
 echo "Current date: $now"
 VAR1='"'
 MESS="$1"
