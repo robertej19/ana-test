@@ -48,7 +48,7 @@ def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 
 
 
-def processEvent(event) {
+def processEvent(event,hhel) {
 	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 
 	    if(banknames.every{event.hasBank(it)}) {
@@ -66,7 +66,7 @@ def processEvent(event) {
 
 for (int i=0; i < 50; i++) {
   def event = reader.getNextEvent()
-  processEvent(event)
+  processEvent(event,hhel)
 }
 
 reader.close()
