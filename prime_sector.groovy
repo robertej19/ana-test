@@ -122,6 +122,7 @@ def processEvent(event,hhel,hphi,hq2) {
 def smalltest = 0
 
 if (smalltest == 0){
+	println "Yes, smalltest is zero"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 	while(reader.hasEvent()) {
@@ -129,6 +130,8 @@ if (smalltest == 0){
 		if(evcount.get() % 10000 == 0){
 			println "event count: "+evcount.get()/10000 + "0 K"
 		}
+		def event = reader.getNextEvent()
+		processEvent(event,hhel,hphi,hq2)
 	}
 }
 else {
