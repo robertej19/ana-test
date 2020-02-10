@@ -27,9 +27,10 @@ def target = LorentzVector.withPID(2212,0,0,0)
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 
 
-def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
 
 def processEvent(event) {
+	def banknames = ['REC::Event','REC::Particle','REC::Cherenkov','REC::Calorimeter','REC::Traj','REC::Track','REC::Scintillator']
+
 	    if(banknames.every{event.hasBank(it)}) {
 		    def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
 		    def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
