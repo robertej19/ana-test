@@ -69,7 +69,7 @@ for(fname in args) {
 	reader.open(fname)
 	while(reader.hasEvent()) {
 	for(int ii=0;ii<=66;ii++){
-	println("On event number $ii")
+	//println("On event number $ii")
 		def event = reader.getNextEvent()
 		if(!event.hasBank("REC::Particle")){
 			printer("event bank empty, skipping",0)
