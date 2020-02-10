@@ -65,11 +65,11 @@ for(fname in args) {
 	}
 
 	def reader = new HipoDataSource()
-	
+
 	reader.open(fname)
 	while(reader.hasEvent()) {
-	//for(int ii=0;ii<=6666;ii++){
-	//println("On event number $ii")
+	for(int ii=0;ii<=6666;ii++){
+	println("On event number $ii")
 		def event = reader.getNextEvent()
 		if(!event.hasBank("REC::Particle")){
 			printer("event bank empty, skipping",0)
