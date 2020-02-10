@@ -44,7 +44,7 @@ reader.open(args[0])
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",250,-50,400)
 
-def processEvent(event,hhel) {
+def processEvent(event,hhel,hphi) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
@@ -117,7 +117,7 @@ def processEvent(event,hhel) {
 
 for (int i=0; i < 50000; i++) {
   def event = reader.getNextEvent()
-  processEvent(event,hhel)
+  processEvent(event,hhel,hphi)
 }
 
 reader.close()
