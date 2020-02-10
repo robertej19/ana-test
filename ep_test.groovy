@@ -120,7 +120,7 @@ class ep_test {
             }
           }
           return false
-        }
+        
 
 
       // def goodgammas = ele.vect().theta(g1.vect())>8 && ele.vect().theta(g2.vect())>8
