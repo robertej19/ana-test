@@ -105,7 +105,7 @@ def processEvent(event,hhel) {
 			   if(profi<0) profi+=360
 
 
-			   hhel.fill(ihel)
+			   hhel.fill(profi)
 
 		   }
 
