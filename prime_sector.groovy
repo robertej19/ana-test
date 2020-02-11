@@ -133,7 +133,7 @@ if (smalltest == 0){
 			println "event count: "+evcount.get()/10000 + "0 K"
 		}
 		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2)
+		processEvent(event,hhel,hphi,hq2,hW)
 	}
 }
 else {
