@@ -137,6 +137,7 @@ while(reader.hasEvent()) {
 	if(total_events.get() % 100000 == 0){
 		println "event count: "+total_events.get()/100000 + "00 K"
 	}
+	reader.getNextEvent()
 }
 
 println ""
