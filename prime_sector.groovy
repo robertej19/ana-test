@@ -135,8 +135,9 @@ while(reader.hasEvent()) {
 	total_events.getAndIncrement()
 	println "Counting number of events in file"
 	if(total_events.get() % 100000 == 0){
-	  println "event count: "+total_events.get()/100000 + "00 K"
-  }
+		println "event count: "+total_events.get()/100000 + "00 K"
+	}
+}
 
 println ""
 println "Total number of events is " + total_events.get()/10000 + "0 K"
