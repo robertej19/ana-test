@@ -131,9 +131,9 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 
 
 def total_events = new AtomicInteger()
+println "Counting number of events in file"
 while(reader.hasEvent()) {
 	total_events.getAndIncrement()
-	println "Counting number of events in file"
 	if(total_events.get() % 100000 == 0){
 		println "event count: "+total_events.get()/100000 + "00 K"
 	}
