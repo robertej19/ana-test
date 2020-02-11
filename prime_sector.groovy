@@ -119,7 +119,7 @@ def processEvent(event,hhel,hphi,hq2) {
 
 }
 
-def smalltest = 50
+def smalltest = 0
 
 if (smalltest == 0){
 	println "smalltest is zero"
