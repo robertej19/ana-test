@@ -44,8 +44,9 @@ reader.open(args[0])
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
+def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 
-def processEvent(event,hhel,hphi,hq2) {
+def processEvent(event,hhel,hphi,hq2,hW) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
@@ -111,6 +112,7 @@ def processEvent(event,hhel,hphi,hq2) {
 			   hhel.fill(ihel)
 			   hphi.fill(profi)
 			   hq2.fill(-qvec.mass2())
+			   hW.fill(wvec.mass())
 
 		   }
 
@@ -137,7 +139,7 @@ if (smalltest == 0){
 else {
 	for (int i=0; i < smalltest; i++) {
 		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2)
+		processEvent(event,hhel,hphi,hq2,hW)
 	}
 }
 
@@ -151,5 +153,6 @@ out.cd('/'+run)
 out.addDataSet(hhel)
 out.addDataSet(hphi)
 out.addDataSet(hq2)
+out.addDataSet(hW)
 
 out.writeFile(run+'.hipo')
