@@ -42,6 +42,9 @@ def printer(string,override){
 		}
 	}
 	if(k==0){
+		if(override==1){
+			println(string+"\n")
+		}
 		if(override==2){
 			println(string)
 		}
