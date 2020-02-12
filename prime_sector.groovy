@@ -58,10 +58,6 @@ date = new Date()
 fst = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
-printer("Processing started at " + file_start_time,1)
-
-
-
 def reader = new HipoDataSource()
 reader.open(args[0])
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
@@ -214,19 +210,16 @@ else {
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 
-		println("Total running time in minutes is: ${Math.round(time_diff*10)/10}")
-		//array_left = args.length-array_index
-		//println("$array_index Files have been processed, $array_left files remain")
-		//time_left = time_diff*array_left/array_index
-		//uTS = Math.round(time_left*60+runtime.getTime()/1000)
-		//eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
-		//println("Anticipated finish time is $eta")
-
-
-
-
 		if(evcount.get() % count_rate.toInteger() == 0){
-			printer("event count: "+evcount.get(),2)
+			printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",1)
+			events_left = smalltest-evcount.get()
+			println("$evcount.get() Events have been processed, $events_left files remain")
+			//time_left = time_diff*array_left/array_index
+			//uTS = Math.round(time_left*60+runtime.getTime()/1000)
+			//eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+			//println("Anticipated finish time is $eta")
+
+
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
