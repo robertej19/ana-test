@@ -101,6 +101,7 @@ class eppi0_mon {
         def qvec = beam-ele
         def epx = beam+target-ele-pro
 
+
         def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
 
         def profi = Math.toDegrees(pro.phi())
