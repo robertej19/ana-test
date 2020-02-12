@@ -211,6 +211,8 @@ else {
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % count_rate.toInteger() == 0){
+			runtime = new Date()
+			time_diff = (runtime.getTime() - fst)/1000/60
 			//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
 			printer("Total running time in minutes is: $time_diff",2)
 			events_left = smalltest-evcount.get()
