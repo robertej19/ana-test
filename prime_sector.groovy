@@ -42,7 +42,7 @@ def printer(string,override){
 		}
 	}
 	if(k==0){
-		if(override=2){
+		if(override==2){
 			println(string)
 		}
 	}
