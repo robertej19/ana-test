@@ -180,7 +180,7 @@ if (smalltest == 0){
 	}
 }
 else {
-	count_rate = [smalltest/10]
+	count_rate = smalltest/10
 	countratex = count_rate.toInteger()
 	println "countrate is "+countratex.getClass()
 	println "smalltest is "+smalltest.getClass()
