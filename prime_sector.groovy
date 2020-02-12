@@ -211,7 +211,8 @@ else {
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % count_rate.toInteger() == 0){
-			printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
+			//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
+			printer("Total running time in minutes is: $time_diff",2)
 			events_left = smalltest-evcount.get()
 			printer(evcount.get()+" Events have been processed, $events_left files remain",2)
 			time_left = time_diff*events_left/smalltest
