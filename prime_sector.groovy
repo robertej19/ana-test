@@ -180,11 +180,11 @@ if (smalltest == 0){
 	}
 }
 else {
-	println "Processing first " + smalltest + "events"
+	println "Processing first " + smalltest + " events"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
-		if(evcount.get() % 10000 == 0){
-			println "event count: "+evcount.get()/10000 + "0 K"
+		if(evcount.get() % (smalltest/10) == 0){
+			println "event count: "+evcount.get()
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
