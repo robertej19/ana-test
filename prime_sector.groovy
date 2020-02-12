@@ -180,7 +180,7 @@ evcount.set(0)
 
 
 runtime = new Date()
-printer("Processing $fname at time ${runtime.format('HH:mm:ss')}",1)
+printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
 time_diff = (runtime.getTime() - fst)/1000/60
 
 
