@@ -145,7 +145,11 @@ while(reader.hasEvent()) {
 println ""
 println "Total number of events is " + total_events.get()/10000 + "0 K"
 println ""
+reader.close()
 
+
+def reader = new HipoDataSource()
+reader.open(args[0])
 
 def smalltest = 0
 
@@ -170,6 +174,7 @@ else {
 }
 
 reader.close()
+
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
