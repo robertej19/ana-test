@@ -148,7 +148,6 @@ println ""
 reader.close()
 
 
-def reader = new HipoDataSource()
 reader.open(args[0])
 
 def smalltest = 0
