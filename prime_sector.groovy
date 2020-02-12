@@ -49,7 +49,7 @@ date = new Date()
 fst = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
-println "Processing started at" + file_start_time
+println "Processing started at " + file_start_time
 
 
 
@@ -165,11 +165,11 @@ reader.open(args[0])
 */
 
 def smalltest = 1000
+def evcount = new AtomicInteger()
+evcount.set(0)
 
 if (smalltest == 0){
 	println "Processing entire datafile"
-	def evcount = new AtomicInteger()
-	evcount.set(0)
 	while(reader.hasEvent()) {
 		evcount.getAndIncrement()
 		if(evcount.get() % 10000 == 0){
@@ -180,7 +180,12 @@ if (smalltest == 0){
 	}
 }
 else {
+	println "Processing first " + smalltest "events"
 	for (int i=0; i < smalltest; i++) {
+		evcount.getAndIncrement()
+		if(evcount.get() % 10000 == 0){
+			println "event count: "+evcount.get()/10000 + "0 K"
+		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
 	}
