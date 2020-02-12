@@ -170,7 +170,7 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 100
+def smalltest = 100000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
