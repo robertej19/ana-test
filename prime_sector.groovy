@@ -181,6 +181,7 @@ if (smalltest == 0){
 }
 else {
 	count_rate = smalltest/10
+	println "countrate is "+count_rate
 	println "Processing first " + smalltest + " events"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
