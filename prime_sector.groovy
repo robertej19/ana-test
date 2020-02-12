@@ -180,7 +180,7 @@ if (smalltest == 0){
 	}
 }
 else {
-	count_rate = smalltest/10
+	count_rate = [smalltest/10]
 	countratex = count_rate.toInteger()
 	println "countrate is "+countratex.getClass()
 	println "smalltest is "+smalltest.getClass()
@@ -188,7 +188,7 @@ else {
 	println "Processing first " + smalltest + " events"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
-		if(evcount.get() % countratex == 0){
+		if(evcount.get() % count_rate.toInteger() == 0){
 			println "event count: "+evcount.get()
 		}
 		def event = reader.getNextEvent()
