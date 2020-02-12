@@ -100,7 +100,7 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 			def wvec = beam+target-ele
 			def qvec = beam-ele
 			def epx = beam+target-ele-pro
-			def xBjorken = -qvec.mass2()/(2*pro*qvec)
+			def xBjorken = -qvec.mass2()/(pro*qvec)
 			println "xB is " + xBjorken
 
 			//println "qvec is " + qvec
