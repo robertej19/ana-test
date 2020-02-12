@@ -1,43 +1,56 @@
 #!/usr/bin/groovy
 
-import org.jlab.io.hipo.HipoDataSource
-import org.jlab.io.hipo.HipoDataSync
-import org.jlab.detector.base.DetectorType
-import org.jlab.detector.base.DetectorType
-import org.jlab.clas.physics.LorentzVector
-import org.jlab.clas.physics.Vector3
-import org.jlab.groot.data.H1F
-import org.jlab.groot.data.H2F
+import java.io.*
+import java.nio.ByteBuffer
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
-import java.nio.ByteBuffer
-import java.io.*
-import java.util.*
-import org.jlab.groot.data.TDirectory
+import java.util.Date
+import org.jlab.clas.physics.LorentzVector
+import org.jlab.clas.physics.Vector3
+import org.jlab.detector.base.DetectorType
+import org.jlab.groot.base.GStyle
 import org.jlab.groot.data.GraphErrors
-import org.jlab.groot.group.DataGroup
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.H2F
-import org.jlab.groot.math.F1D
+import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
+import org.jlab.groot.graphics.EmbeddedCanvas
+import org.jlab.groot.group.DataGroup
+import org.jlab.groot.math.F1D
 import org.jlab.io.base.DataBank
 import org.jlab.io.base.DataEvent
 import org.jlab.io.hipo.HipoDataSource
 import org.jlab.io.hipo.HipoDataSync
-import org.jlab.detector.base.DetectorType
-import org.jlab.clas.physics.Vector3
-import org.jlab.clas.physics.LorentzVector
-import org.jlab.groot.base.GStyle
-import org.jlab.groot.graphics.EmbeddedCanvas
-import java.text.SimpleDateFormat
-import java.time.Instant
+
 
 MyMods.enable()
 /////////////////
+
+def printer(string,override){
+	k = 0
+	if(k==1){
+		println(string)
+	}
+	if(k==0){
+		if(override==1){
+			println(string)
+		}
+	}
+}
+
+date = new Date()
+fst = date.getTime()
+file_start_time = date.format("yyyyMMdd_HH-mm-ss")
+
+
+
 
 def reader = new HipoDataSource()
 reader.open(args[0])
