@@ -49,6 +49,7 @@ date = new Date()
 fst = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
+println "Processing started at" + file_start_time
 
 
 
