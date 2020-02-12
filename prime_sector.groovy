@@ -37,10 +37,13 @@ def printer(string,override){
 	k = 0
 	if(k==1){
 		println(string+"\n")
+		if(override==2){
+			println(string)
+		}
 	}
 	if(k==0){
-		if(override==1){
-			println(string+"\n")
+		if(override=2){
+			println(string)
 		}
 	}
 }
@@ -174,7 +177,7 @@ if (smalltest == 0){
 	while(reader.hasEvent()) {
 		evcount.getAndIncrement()
 		if(evcount.get() % 10000 == 0){
-			printer("event count: "+evcount.get()/10000 + "0 K",1)
+			printer("event count: "+evcount.get()/10000 + "0 K",2)
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
@@ -186,7 +189,7 @@ else {
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % count_rate.toInteger() == 0){
-			printer("event count: "+evcount.get(),1)
+			printer("event count: "+evcount.get(),2)
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
