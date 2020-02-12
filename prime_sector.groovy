@@ -180,7 +180,7 @@ if (smalltest == 0){
 	}
 }
 else {
-	println "Processing first " + smalltest "events"
+	println "Processing first " + smalltest + "events"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % 10000 == 0){
