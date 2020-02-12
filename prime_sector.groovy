@@ -183,7 +183,7 @@ else {
 	println "Processing first " + smalltest + " events"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
-		if(evcount.get() % (smalltest/10) == 0){
+		if(evcount.get() % smalltest/10 == 0){
 			println "event count: "+evcount.get()
 		}
 		def event = reader.getNextEvent()
