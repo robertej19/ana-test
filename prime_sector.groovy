@@ -36,11 +36,11 @@ MyMods.enable()
 def printer(string,override){
 	k = 0
 	if(k==1){
-		println(string)
+		println(string+"\n")
 	}
 	if(k==0){
 		if(override==1){
-			println(string)
+			println(string+"\n")
 		}
 	}
 }
@@ -49,7 +49,7 @@ date = new Date()
 fst = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
-println "Processing started at " + file_start_time
+printer("Processing started at " + file_start_time,1)
 
 
 
@@ -181,11 +181,7 @@ if (smalltest == 0){
 }
 else {
 	count_rate = smalltest/10
-	countratex = count_rate.toInteger()
-	println "countrate is "+countratex.getClass()
-	println "smalltest is "+smalltest.getClass()
-
-	println "Processing first " + smalltest + " events"
+	println "Processing first " + smalltest + " events \n"
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % count_rate.toInteger() == 0){
