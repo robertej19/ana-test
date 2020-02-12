@@ -100,8 +100,8 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 			def wvec = beam+target-ele
 			def qvec = beam-ele
 			def epx = beam+target-ele-pro
-			def xBjorken = -qvec.mass2()/(pro*qvec)
-			println "xB is " + xBjorken
+			//def xBjorken = -qvec.mass2()/(pro*qvec)
+			//println "xB is " + xBjorken
 
 			//println "qvec is " + qvec
 			//println "qvec comp is " + -qvec.mass2()
@@ -150,7 +150,7 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 0
+def smalltest = 1000
 
 if (smalltest == 0){
 	println "Processing entire datafile"
