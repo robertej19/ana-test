@@ -170,15 +170,16 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 1000000
+def smalltest = 100
 def evcount = new AtomicInteger()
 evcount.set(0)
 
 
 runtime = new Date()
 printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
-time_diff = (runtime.getTime() - fst)/1000/60
 
+time_diff = (runtime.getTime() - fst)/1000/60
+println "TIME DIF IS: " + time_diff
 
 
 /*
