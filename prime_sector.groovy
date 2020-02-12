@@ -201,6 +201,7 @@ else {
 		processEvent(event,hhel,hphi,hq2,hW)
 	}
 }
+printer("Done processing data",1)
 
 reader.close()
 
