@@ -178,6 +178,25 @@ def smalltest = 1000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
+
+runtime = new Date()
+printer("Processing $fname at time ${runtime.format('HH:mm:ss')}",1)
+time_diff = (runtime.getTime() - fst)/1000/60
+
+
+
+/*
+println("Total running time in minutes is: ${Math.round(time_diff*10)/10}")
+array_left = args.length-array_index
+println("$array_index Files have been processed, $array_left files remain")
+time_left = time_diff*array_left/array_index
+uTS = Math.round(time_left*60+runtime.getTime()/1000)
+eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+println("Anticipated finish time is $eta")
+*/
+
+
+
 if (smalltest == 0){
 	printer("Processing entire datafile",1)
 	while(reader.hasEvent()) {
@@ -194,6 +213,18 @@ else {
 	printer("Processing first " + smalltest + " events",1)
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
+
+		println("Total running time in minutes is: ${Math.round(time_diff*10)/10}")
+		//array_left = args.length-array_index
+		//println("$array_index Files have been processed, $array_left files remain")
+		//time_left = time_diff*array_left/array_index
+		//uTS = Math.round(time_left*60+runtime.getTime()/1000)
+		//eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+		//println("Anticipated finish time is $eta")
+
+
+
+
 		if(evcount.get() % count_rate.toInteger() == 0){
 			printer("event count: "+evcount.get(),2)
 		}
