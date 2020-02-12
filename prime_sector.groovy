@@ -70,14 +70,14 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 		def (evb,partb,cc,ec,traj,trck,scib) = banknames.collect{event.getBank(it)}
 		def banks = [cc:cc,ec:ec,part:partb,traj:traj,trck:trck]
 		def ihel = evb.getByte('helicity',0)
-		//println "ihel is "+ihel
+		printer("ihel is "+ihel,0)
 
 
 
 		def index_of_electrons_and_protons = (0..<partb.rows()).findAll{partb.getInt('pid',it)==11 && partb.getShort('status',it)<0}
 			.collectMany{iele->(0..<partb.rows()).findAll{partb.getInt('pid',it)==2212}.collect{ipro->[iele,ipro]}
 		}
-		//println "index_of_electrons_and_protons "+index_of_electrons_and_protons
+		printer("index_of_electrons_and_protons "+index_of_electrons_and_protons,0)
 
 		def index_of_pions = (0..<partb.rows()-1).findAll{partb.getInt('pid',it)==22 && partb.getShort('status',it)>=2000}
 			.findAll{ig1->'xyz'.collect{partb.getFloat("p$it",ig1)**2}.sum()>0.16}
@@ -86,14 +86,15 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 			.findAll{ig2->'xyz'.collect{partb.getFloat("p$it",ig2)**2}.sum()>0.16}
 			.collect{ig2->[ig1,ig2]}
 		}
-		//println "index of pions is " + index_of_pions
+		printer("index of pions is " + index_of_pions,0)
 
 		def isep0s = index_of_electrons_and_protons.findAll{iele,ipro->
 			def ele = LorentzVector.withPID(11,*['px','py','pz'].collect{partb.getFloat(it,iele)})
 			def pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{partb.getFloat(it,ipro)})
-			//println "first electron is"+ele
+			printer("first electron is"+ele,0)
+
 			if(event.hasBank("MC::Particle")) {
-				//println "Event has MC Particle bank!"
+				printer("Event has MC Particle bank!",0)
 				def mcb = event.getBank("MC::Particle")
 				def mfac = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 3.2 : 2.5
 
@@ -104,7 +105,7 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 
 				ele = LorentzVector.withPID(11,*['px','py','pz'].collect{mcb.getFloat(it,0) + (partb.getFloat(it,iele)-mcb.getFloat(it,0))*mfac})
 				pro = LorentzVector.withPID(2212,*['px','py','pz'].collect{profac*(mcb.getFloat(it,1) + (partb.getFloat(it,ipro)-mcb.getFloat(it,1))*mfac)})
-				//println "second electron is"+ele
+				printer("second electron is"+ele)
 				def evec = new Vector3()
 				evec.setMagThetaPhi(ele.p(), ele.theta(), ele.phi())
 				def pvec = new Vector3()
@@ -169,11 +170,11 @@ def evcount = new AtomicInteger()
 evcount.set(0)
 
 if (smalltest == 0){
-	println "Processing entire datafile"
+	printer("Processing entire datafile",1)
 	while(reader.hasEvent()) {
 		evcount.getAndIncrement()
 		if(evcount.get() % 10000 == 0){
-			println "event count: "+evcount.get()/10000 + "0 K"
+			printer("event count: "+evcount.get()/10000 + "0 K",1)
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
@@ -181,11 +182,11 @@ if (smalltest == 0){
 }
 else {
 	count_rate = smalltest/10
-	println "Processing first " + smalltest + " events \n"
+	printer("Processing first " + smalltest + " events",1)
 	for (int i=0; i < smalltest; i++) {
 		evcount.getAndIncrement()
 		if(evcount.get() % count_rate.toInteger() == 0){
-			println "event count: "+evcount.get()
+			printer("event count: "+evcount.get(),1)
 		}
 		def event = reader.getNextEvent()
 		processEvent(event,hhel,hphi,hq2,hW)
