@@ -170,7 +170,7 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 100000
+def smalltest = 1000000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
@@ -214,7 +214,7 @@ else {
 			runtime = new Date()
 			time_diff = (runtime.getTime() - fst)/1000/60
 			//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
-			printer("Total running time in minutes is: $time_diff",2)
+			printer("Total running time in minutes is: ${time_diff.round(3)}",2)
 			events_left = smalltest-evcount.get()
 			printer(evcount.get()+" Events have been processed, $events_left files remain",2)
 			time_left = time_diff*events_left/smalltest
