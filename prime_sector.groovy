@@ -45,7 +45,7 @@ def printer(string,override){
 	}
 	if(k==0){
 		if(override==1){
-			println("\n"+string+"\n")
+			println(string+"\n")
 		}
 		if(override==2){
 			println(string)
@@ -194,7 +194,8 @@ for (int i=0; i < NumEventsToProcess; i++) {
 
 def TotalRunTime = (date.getTime() - FileStartTime)/1000/60
 printer(date.getTime(),2)
-printer("Finished processing ${(NumEventsToProcess/1000000).round(3)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime} minutes",1)
+printer(FileStartTime,2)
+printer("Finished processing ${(NumEventsToProcess/1000000).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
