@@ -33,6 +33,8 @@ MyMods.enable() //I don't know what this does, its from Andrey, don't touch it, 
 
 println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n")
 
+Mil = 1000000
+
 /////////////////
 
 def printer(string,override){
@@ -158,7 +160,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
 
 		//printer("Total running time in minutes is: ${TimeElapsed.round(2)}",2)
-		printer(CurrentCounter+" Events have been processed, $CountsLeft files remain",2)
+		printer("${(CurrentCounter/Mil).round(2)}M events have been processed, ${(CountsLeft/Mil).round(2)}M events remain",2)
 		printer("Processing Rate is ${Rate.round(1)} kHz",2)
 		printer("Anticipated finish time is $eta",1)
 	}
