@@ -65,7 +65,7 @@ file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 def reader = new HipoDataSource()
 def fname = args[0]
 
-def NumEventsToProcess = args[1]
+def NumEventsToProcess = args[1].toInteger()
 
 reader.open(fname)
 
@@ -77,7 +77,7 @@ def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,-1,2)
 
 
 
-def NumEventsInFile= reader.getSize()
+def NumEventsInFile= reader.getSize().toInteger()
 
 
 def processEvent(event,hhel,hphi,hq2,hW,hxB) {
