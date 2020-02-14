@@ -245,6 +245,12 @@ printer("Done processing data",1)
 
 reader.close()
 
+canvas.draw(hW);
+canvas.setFont("HanziPen TC");
+canvas.setTitleSize(72);
+canvas.setAxisTitleSize(72);
+canvas.setAxisLabelSize(76);
+
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
@@ -257,9 +263,3 @@ out.addDataSet(hq2)
 out.addDataSet(hW)
 
 out.writeFile(run+'.hipo')
-
-canvas.draw(hW);
-canvas.setFont("HanziPen TC");
-canvas.setTitleSize(72);
-canvas.setAxisTitleSize(72);
-canvas.setAxisLabelSize(76);
