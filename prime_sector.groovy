@@ -178,8 +178,8 @@ if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
 def evcount = new AtomicInteger()
 evcount.set(0)
 
-def date = new Date()
-def FileStartTime = date.getTime()
+//def date = new Date()
+def FileStartTime = new Date.getTime()
 printer("Processing file at time ${date.format('HH:mm:ss')}",1)
 
 
