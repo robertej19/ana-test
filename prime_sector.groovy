@@ -60,7 +60,7 @@ def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
-def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",10,0,1.5,10,0,12)
+def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",100,0,1.5,100,0,12)
 
 def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
