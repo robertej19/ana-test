@@ -33,6 +33,11 @@ MyMods.enable() //I don't know what this does, its from Andrey, don't touch it, 
 
 println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n")
 
-for(fname in args[0]) {
-	println fname
+import groovy.io.FileType
+
+def list = []
+
+def dir = new File("path_to_parent_dir")
+dir.eachFileRecurse (FileType.FILES) { file ->
+  list << file
 }
