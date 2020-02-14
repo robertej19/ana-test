@@ -65,8 +65,7 @@ file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 def reader = new HipoDataSource()
 def fname = args[0]
 
-def argsize = args
-println "Second arguement is " + argsize
+def NumEventsToProcess = args[1]
 
 reader.open(fname)
 
@@ -78,9 +77,7 @@ def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,-1,2)
 
 
 
-def max_event= reader.getSize()
-println "Max Event Size is xxxxxxx : " + max_event
-
+def NumEventsInFile= reader.getSize()
 
 
 def processEvent(event,hhel,hphi,hq2,hW,hxB) {
@@ -171,25 +168,6 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 }
 
 
-/*
-def total_events = new AtomicInteger()
-println "Counting number of events in file"
-while(reader.hasEvent()) {
-	total_events.getAndIncrement()
-	if(total_events.get() % 100000 == 0){
-		println "event count: "+total_events.get()/100000 + "00 K"
-	}
-	reader.getNextEvent()
-}
-
-println ""
-println "Total number of events is " + total_events.get()/10000 + "0 K"
-println ""
-reader.close()
-reader.open(args[0])
-*/
-
-def smalltest = 100000//1000000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
@@ -199,53 +177,32 @@ printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
 
 time_diff = (runtime.getTime() - fst)/1000/60
 
-
-/*
-println("Total running time in minutes is: ${Math.round(time_diff*10)/10}")
-array_left = args.length-array_index
-println("$array_index Files have been processed, $array_left files remain")
-time_left = time_diff*array_left/array_index
-uTS = Math.round(time_left*60+runtime.getTime()/1000)
-eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
-println("Anticipated finish time is $eta")
-*/
-
-
-
-if (smalltest == 0){
-	printer("Processing entire datafile",1)
-	while(reader.hasEvent()) {
-		evcount.getAndIncrement()
-		if(evcount.get() % 10000 == 0){
-			printer("event count: "+evcount.get()/10000 + "0 K",2)
-		}
-		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2,hW,hxB)
-	}
+if (NumEventsToProcess == 0){
+	NumEventsToProcess = NumEventsInFile
 }
-else {
-	count_rate = smalltest/10
-	printer("Processing first " + smalltest + " events",1)
-	for (int i=0; i < smalltest; i++) {
-		evcount.getAndIncrement()
-		if(evcount.get() % count_rate.toInteger() == 0){
-			runtime = new Date()
-			time_diff = (runtime.getTime() - fst)/1000/60
-			//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
-			printer("Total running time in minutes is: ${time_diff.round(2)}",2)
-			events_left = smalltest-evcount.get()
-			printer(evcount.get()+" Events have been processed, $events_left files remain",2)
-			time_left = time_diff/evcount.get()*events_left
-			uTS = Math.round(time_left*60+runtime.getTime()/1000)
-			eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
-			println("Anticipated finish time is $eta")
+
+count_rate = NumEventsToProcess/10
+printer("Processing first " + NumEventsToProcess + " events",1)
+for (int i=0; i < NumEventsToProcess; i++) {
+	evcount.getAndIncrement()
+	if(evcount.get() % count_rate.toInteger() == 0){
+		runtime = new Date()
+		time_diff = (runtime.getTime() - fst)/1000/60
+		//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
+		printer("Total running time in minutes is: ${time_diff.round(2)}",2)
+		events_left = NumEventsToProcess-evcount.get()
+		printer(evcount.get()+" Events have been processed, $events_left files remain",2)
+		time_left = time_diff/evcount.get()*events_left
+		uTS = Math.round(time_left*60+runtime.getTime()/1000)
+		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+		println("Anticipated finish time is $eta")
 
 
-		}
-		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2,hW,hxB)
 	}
+	def event = reader.getNextEvent()
+	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
+
 printer("Done processing data",1)
 
 reader.close()
