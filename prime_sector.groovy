@@ -32,6 +32,7 @@ import org.jlab.io.hipo.HipoDataSync
 GStyle.getAxisAttributesX().setTitleFontSize(98);
 GStyle.getAxisAttributesX().setLabelFontSize(90);
 
+EmbeddedCanvas canvas = new EmbeddedCanvas();
 
 MyMods.enable()
 
@@ -256,3 +257,9 @@ out.addDataSet(hq2)
 out.addDataSet(hW)
 
 out.writeFile(run+'.hipo')
+
+canvas.draw(hW);
+canvas.setFont("HanziPen TC");
+canvas.setTitleSize(72);
+canvas.setAxisTitleSize(72);
+canvas.setAxisLabelSize(76);
