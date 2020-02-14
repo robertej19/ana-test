@@ -194,7 +194,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 def reader = new HipoDataSource()
 if (args.size()<2) {
 	printer("You need to include the number of events you want to process in the start command!",1)
-	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000")
+	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000",1)
 }
 
 def fname = args[0]

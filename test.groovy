@@ -1,27 +1,38 @@
-import java.util.Random;
-import javax.swing.JFrame;
+#!/usr/bin/groovy
 
-import org.jlab.groot.data.H1F;
-import org.jlab.groot.graphics.EmbeddedCanvas;
+import java.io.*
+import java.nio.ByteBuffer
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
+import java.util.Date
+import org.jlab.clas.physics.LorentzVector
+import org.jlab.clas.physics.Vector3
+import org.jlab.detector.base.DetectorType
+import org.jlab.groot.base.GStyle
+import org.jlab.groot.data.GraphErrors
+import org.jlab.groot.data.H1F
+import org.jlab.groot.data.H2F
+import org.jlab.groot.data.TDirectory
+import org.jlab.groot.fitter.DataFitter
+import org.jlab.groot.graphics.EmbeddedCanvas
+import org.jlab.groot.group.DataGroup
+import org.jlab.groot.math.F1D
+import org.jlab.io.base.DataBank
+import org.jlab.io.base.DataEvent
+import org.jlab.io.hipo.HipoDataSource
+import org.jlab.io.hipo.HipoDataSync
 
-public class BasicDemo {
+MyMods.enable() //I don't know what this does, its from Andrey, don't touch it, it works
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Basic GROOT Demo");
-		EmbeddedCanvas canvas = new EmbeddedCanvas();
-		frame.setSize(800,500);
-		H1F histogram = new H1F("histogram",100,-5,5);
-		Random randomGenerator = new Random();
-		for(int i=0; i<5000; i++){
-			histogram.fill(randomGenerator.nextGaussian());
-		}
-		histogram.setTitleX("Randomly Generated Function");
-		histogram.setTitleY("Counts");
-		canvas.draw(histogram);
-		frame.add(canvas);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n")
 
-	}
-
+for(fname in args[0]) {
+	println fname
 }
