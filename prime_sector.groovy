@@ -163,7 +163,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 		//printer("Total running time in minutes is: ${TimeElapsed.round(2)}",2)
 		printer("${(CurrentCounter/Mil).round(2)}M events have been processed, ${(CountsLeft/Mil).round(2)}M events remain",2)
 		printer("Processing Rate is ${Rate.round(1)} kHz",2)
-		printer("Anticipated finish time is $eta",1)
+		printer("Anticipated finish time is $eta, ${TimeLeft.round(2)} minutes left",1)
 	}
 }
 
