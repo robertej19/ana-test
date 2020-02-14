@@ -179,7 +179,7 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 0//1000000
+def smalltest = 1000//1000000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
@@ -241,6 +241,8 @@ printer("Done processing data",1)
 
 reader.close()
 
+GStyle.getAxisAttributesX().setTitleFontSize(32);
+GStyle.getAxisAttributesX().setLabelFontSize(28);
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
