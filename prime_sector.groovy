@@ -144,7 +144,7 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 			hq2.fill(-qvec.mass2())
 			hW.fill(wvec.mass())
 			hxB.fill(xBjorken)
-			H_xB_Q2.fill(xBjorken,-qvec.mass2())
+			//H_xB_Q2.fill(xBjorken,-qvec.mass2())
 
 		 }
 	}
@@ -172,6 +172,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 
 
 def reader = new HipoDataSource()
+println args
 def fname = args[0]
 def NumEventsToProcess = args[1].toInteger()
 reader.open(fname)
