@@ -64,6 +64,10 @@ file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
 def reader = new HipoDataSource()
 def fname = args[0]
+
+def argsize = args[1]
+println "Second arguement is " + argsize
+
 reader.open(fname)
 
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
@@ -194,7 +198,6 @@ runtime = new Date()
 printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
 
 time_diff = (runtime.getTime() - fst)/1000/60
-println "TIME DIF IS: " + time_diff
 
 
 /*
