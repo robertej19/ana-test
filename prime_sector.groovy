@@ -134,7 +134,7 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 			def wvec = beam+target-ele
 			def qvec = beam-ele
 			def epx = beam+target-ele-pro
-			def xBjorken = -qvec.mass2()/(pro.vect().dot(qvec.vect()))
+			def xBjorken = -qvec.mass2()/(2*pro.vect().dot(qvec.vect()))
 			printer("xB is " + xBjorken,0)
 
 			//println "qvec is " + qvec
@@ -185,7 +185,7 @@ reader.close()
 reader.open(args[0])
 */
 
-def smalltest = 1000//1000000
+def smalltest = 1000000//1000000
 def evcount = new AtomicInteger()
 evcount.set(0)
 
