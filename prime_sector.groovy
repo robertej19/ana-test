@@ -193,8 +193,7 @@ for (int i=0; i < NumEventsToProcess; i++) {
 }
 
 def TotalRunTime = (date.getTime() - FileStartTime)/1000/60
-printer("Finished processing $NumEventsToProcess at ${runtime.getTime()}, 
-	total run time ${TotalRunTime.round(2)} minutes",1)
+printer("Finished processing $NumEventsToProcess at ${runtime.getTime()},total run time ${TotalRunTime.round(2)} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
