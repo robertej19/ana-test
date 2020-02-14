@@ -53,13 +53,12 @@ def printer(string,override){
 	}
 }
 
-date = new Date()
-fst = date.getTime()
+def date = new Date()
+def FileStartTime = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
 def reader = new HipoDataSource()
 def fname = args[0]
-
 def NumEventsToProcess = args[1].toInteger()
 
 reader.open(fname)
@@ -170,8 +169,6 @@ evcount.set(0)
 runtime = new Date()
 printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
 
-time_diff = (runtime.getTime() - fst)/1000/60
-
 if (NumEventsToProcess == 0){
 	NumEventsToProcess = NumEventsInFile
 }
@@ -180,13 +177,16 @@ if (NumEventsToProcess == 0){
 def screen_updater(CurrentCounter,CountRate,NumTotalCounts){
 	if(CurrentCounter % CountRate == 0){
 		runtime = new Date()
-		TimeDiff = (runtime.getTime() - fst)/1000/60
-		printer("Total running time in minutes is: ${TimeDiff.round(2)}",2)
+		TimeElapsed = (runtime.getTime() - FileStartTime)/1000/60
 		CountsLeft = NumTotalCounts-CurrentCounter
-		TimeLeft = TimeDiff/CurrentCounter*CountsLeft
+		TimeLeft = TimeElapsed/CurrentCounter*CountsLeft
+		Rate = CurrentCounter/TimeElapsed/1000
 		uTS = Math.round(TimeLeft*60+runtime.getTime()/1000)
 		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+
+		printer("Total running time in minutes is: ${TimeDiff.round(2)}",2)
 		printer(CurrentCounter+" Events have been processed, $CountsLeft files remain",2)
+		printer("Processing Rate is $Rate kHz",2)
 		printer("Anticipated finish time is $eta",2)
 	}
 }
@@ -205,7 +205,7 @@ for (int i=0; i < NumEventsToProcess; i++) {
 	evcount.getAndIncrement()
 	if(evcount.get() % count_rate.toInteger() == 0){
 		runtime = new Date()
-		time_diff = (runtime.getTime() - fst)/1000/60
+		time_diff = (runtime.getTime() - FileStartTime)/1000/60
 		//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
 		printer("Total running time in minutes is: ${time_diff.round(2)}",2)
 		events_left = NumEventsToProcess-evcount.get()
