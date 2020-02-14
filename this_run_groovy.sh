@@ -1,2 +1,1 @@
-$COATJAVA/bin/run-groovy $1 $2
-
+$COATJAVA/bin/run-groovy $1 $2 $3
