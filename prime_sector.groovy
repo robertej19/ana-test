@@ -67,11 +67,8 @@ def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 
-#!/opt/coatjava/6.3.1/bin/run-groovy
-import org.jlab.io.hipo.HipoDataSource
-def fname = args[0]
-def hiporeader = new HipoDataSource()
-hiporeader.open(fname)
+
+
 def max_event= reader.getSize()
 println "Max Event Size is xxxxxxx : " + max_event
 
