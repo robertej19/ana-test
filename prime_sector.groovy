@@ -135,7 +135,7 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 
 			def isep0 = epx.mass2()<1 && wvec.mass()>2
 
-			def pi0s = ipi0s.collect{ig1,ig2->
+			def pi0s = index_of_pions.collect{ig1,ig2->
 				def g1 = LorentzVector.withPID(22,*['px','py','pz'].collect{partb.getFloat(it,ig1)})
 				def g2 = LorentzVector.withPID(22,*['px','py','pz'].collect{partb.getFloat(it,ig2)})
 				if(ele.vect().theta(g1.vect())>8 && ele.vect().theta(g2.vect())>8) {
