@@ -157,7 +157,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 		uTS = Math.round(TimeLeft*60+runtime.getTime()/1000)
 		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
 
-		printer("Total running time in minutes is: ${TimeDiff.round(2)}",2)
+		printer("Total running time in minutes is: ${TimeElapsed.round(2)}",2)
 		printer(CurrentCounter+" Events have been processed, $CountsLeft files remain",2)
 		printer("Processing Rate is $Rate kHz",2)
 		printer("Anticipated finish time is $eta",2)
