@@ -194,9 +194,7 @@ for (int i=0; i < NumEventsToProcess; i++) {
 
 endtime = new Date()
 def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
-printer(date.getTime(),2)
-printer(FileStartTime,2)
-printer("Finished processing ${(NumEventsToProcess/1000000).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime} minutes",1)
+printer("Finished processing ${(NumEventsToProcess/1000000).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
