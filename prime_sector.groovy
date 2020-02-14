@@ -53,26 +53,11 @@ def printer(string,override){
 	}
 }
 
-def date = new Date()
-def FileStartTime = date.getTime()
-file_start_time = date.format("yyyyMMdd_HH-mm-ss")
-
-def reader = new HipoDataSource()
-def fname = args[0]
-def NumEventsToProcess = args[1].toInteger()
-
-reader.open(fname)
-
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,-1,2)
-
-
-
-def NumEventsInFile= reader.getSize().toInteger()
-
 
 def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
@@ -162,19 +147,7 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 }
 
 
-def evcount = new AtomicInteger()
-evcount.set(0)
-
-
-runtime = new Date()
-printer("Processing file at time ${runtime.format('HH:mm:ss')}",1)
-
-if (NumEventsToProcess == 0){
-	NumEventsToProcess = NumEventsInFile
-}
-
-
-def screen_updater(CurrentCounter,CountRate,NumTotalCounts){
+def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 	if(CurrentCounter % CountRate == 0){
 		runtime = new Date()
 		TimeElapsed = (runtime.getTime() - FileStartTime)/1000/60
@@ -190,37 +163,34 @@ def screen_updater(CurrentCounter,CountRate,NumTotalCounts){
 		printer("Anticipated finish time is $eta",2)
 	}
 }
+
+
+
+
+
+def reader = new HipoDataSource()
+def fname = args[0]
+def NumEventsToProcess = args[1].toInteger()
+reader.open(fname)
+def NumEventsInFile= reader.getSize().toInteger()
+if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
+
+def evcount = new AtomicInteger()
+evcount.set(0)
+
+def date = new Date()
+def FileStartTime = date.getTime()
+printer("Processing file at time ${date.format('HH:mm:ss')}",1)
+
+
 def CountRate = NumEventsToProcess/10
 printer("Processing $NumEventsToProcess events",1)
-
 for (int i=0; i < NumEventsToProcess; i++) {
 	evcount.getAndIncrement()
-	screen_updater(evcount.get(),CountRate.toInteger(),NumEventsToProcess)
+	screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
 	def event = reader.getNextEvent()
 	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
-
-/*
-for (int i=0; i < NumEventsToProcess; i++) {
-	evcount.getAndIncrement()
-	if(evcount.get() % count_rate.toInteger() == 0){
-		runtime = new Date()
-		time_diff = (runtime.getTime() - FileStartTime)/1000/60
-		//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
-		printer("Total running time in minutes is: ${time_diff.round(2)}",2)
-		events_left = NumEventsToProcess-evcount.get()
-		printer(evcount.get()+" Events have been processed, $events_left files remain",2)
-		time_left = time_diff/evcount.get()*events_left
-		uTS = Math.round(time_left*60+runtime.getTime()/1000)
-		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
-		println("Anticipated finish time is $eta")
-
-	}
-	def event = reader.getNextEvent()
-	processEvent(event,hhel,hphi,hq2,hW,hxB)
-}
-*/
-
 printer("Finished processing $NumEventsToProcess at ${runtime.getTime()}",1)
 reader.close()
 
@@ -246,4 +216,27 @@ canvas.draw(hW);
 GStyle.getAxisAttributesX().setTitleFontSize(98);
 GStyle.getAxisAttributesX().setLabelFontSize(90);
 EmbeddedCanvas canvas = new EmbeddedCanvas();
+*/
+
+
+
+/*
+for (int i=0; i < NumEventsToProcess; i++) {
+	evcount.getAndIncrement()
+	if(evcount.get() % count_rate.toInteger() == 0){
+		runtime = new Date()
+		time_diff = (runtime.getTime() - FileStartTime)/1000/60
+		//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
+		printer("Total running time in minutes is: ${time_diff.round(2)}",2)
+		events_left = NumEventsToProcess-evcount.get()
+		printer(evcount.get()+" Events have been processed, $events_left files remain",2)
+		time_left = time_diff/evcount.get()*events_left
+		uTS = Math.round(time_left*60+runtime.getTime()/1000)
+		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+		println("Anticipated finish time is $eta")
+
+	}
+	def event = reader.getNextEvent()
+	processEvent(event,hhel,hphi,hq2,hW,hxB)
+}
 */
