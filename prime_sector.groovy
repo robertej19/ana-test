@@ -160,7 +160,7 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 		//printer("Total running time in minutes is: ${TimeElapsed.round(2)}",2)
 		printer(CurrentCounter+" Events have been processed, $CountsLeft files remain",2)
 		printer("Processing Rate is ${Rate.round(1)} kHz",2)
-		printer("Anticipated finish time is $eta",2)
+		printer("Anticipated finish time is $eta",1)
 	}
 }
 
@@ -193,7 +193,8 @@ for (int i=0; i < NumEventsToProcess; i++) {
 }
 
 def TotalRunTime = (date.getTime() - FileStartTime)/1000/60
-printer("Finished processing $NumEventsToProcess events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
+printer(date.getTime(),2)
+printer("Finished processing ${(NumEventsToProcess/1000000).round(3)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
