@@ -59,9 +59,10 @@ def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
-def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,-1,2)
+def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
+def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",1000,0,1.5,1000,0,12)
 
-def processEvent(event,hhel,hphi,hq2,hW,hxB) {
+def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
@@ -143,11 +144,11 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 			hq2.fill(-qvec.mass2())
 			hW.fill(wvec.mass())
 			hxB.fill(xBjorken)
+			H_xB_Q2.fill(xBjorken,-qvec.mass2())
 
 		 }
 	}
 }
-
 
 def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 	if(CurrentCounter % CountRate == 0){
@@ -189,14 +190,14 @@ def CountRate = NumEventsToProcess/10
 printer("Processing $NumEventsToProcess events",1)
 for (int i=0; i < NumEventsToProcess; i++) {
 	evcount.getAndIncrement()
-	//screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
+	screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
 	def event = reader.getNextEvent()
-	processEvent(event,hhel,hphi,hq2,hW,hxB)
+	processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2)
 }
 
 endtime = new Date()
 def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
-printer("Finished processing ${(NumEventsToProcess/1000000).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
+printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
@@ -208,6 +209,7 @@ out.addDataSet(hphi)
 out.addDataSet(hq2)
 out.addDataSet(hW)
 out.addDataSet(hxB)
+out.addDataSet(H_xB_Q2)
 out.writeFile(OutFileName+'.hipo')
 
 /*Shit that does not work for trying to format axes in plots.
