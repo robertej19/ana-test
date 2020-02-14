@@ -179,7 +179,7 @@ def evcount = new AtomicInteger()
 evcount.set(0)
 
 def date = new Date()
-def FileStartTime = new Date
+def FileStartTime = date.getTime()
 printer("Processing file at time ${date.format('HH:mm:ss')}",1)
 
 
