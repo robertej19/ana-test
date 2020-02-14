@@ -15,10 +15,13 @@ public class BasicDemo {
 		for(int i=0; i<5000; i++){
 			histogram.fill(randomGenerator.nextGaussian());
 		}
+		histogram.setTitleX("Randomly Generated Function");
+		histogram.setTitleY("Counts");
 		canvas.draw(histogram);
 		frame.add(canvas);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
 	}
 
 }
