@@ -29,12 +29,7 @@ import org.jlab.io.base.DataEvent
 import org.jlab.io.hipo.HipoDataSource
 import org.jlab.io.hipo.HipoDataSync
 
-GStyle.getAxisAttributesX().setTitleFontSize(98);
-GStyle.getAxisAttributesX().setLabelFontSize(90);
-
-EmbeddedCanvas canvas = new EmbeddedCanvas();
-
-MyMods.enable()
+MyMods.enable() //I don't know what this does, its from Andrey, don't touch it, it works
 
 println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n")
 
@@ -181,8 +176,31 @@ if (NumEventsToProcess == 0){
 	NumEventsToProcess = NumEventsInFile
 }
 
-count_rate = NumEventsToProcess/10
-printer("Processing first " + NumEventsToProcess + " events",1)
+
+def screen_updater(CurrentCounter,CountRate,NumTotalCounts){
+	if(CurrentCounter % CountRate == 0){
+		runtime = new Date()
+		TimeDiff = (runtime.getTime() - fst)/1000/60
+		printer("Total running time in minutes is: ${TimeDiff.round(2)}",2)
+		CountsLeft = NumTotalCounts-CurrentCounter
+		TimeLeft = TimeDiff/CurrentCounter*CountsLeft
+		uTS = Math.round(TimeLeft*60+runtime.getTime()/1000)
+		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
+		printer(CurrentCounter+" Events have been processed, $CountsLeft files remain",2)
+		printer("Anticipated finish time is $eta",2)
+	}
+}
+def CountRate = NumEventsToProcess/10
+printer("Processing $NumEventsToProcess events",1)
+
+for (int i=0; i < NumEventsToProcess; i++) {
+	evcount.getAndIncrement()
+	screen_updater(evcount.get(),CountRate.toInteger(),NumEventsToProcess)
+	def event = reader.getNextEvent()
+	processEvent(event,hhel,hphi,hq2,hW,hxB)
+}
+
+/*
 for (int i=0; i < NumEventsToProcess; i++) {
 	evcount.getAndIncrement()
 	if(evcount.get() % count_rate.toInteger() == 0){
@@ -197,40 +215,35 @@ for (int i=0; i < NumEventsToProcess; i++) {
 		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
 		println("Anticipated finish time is $eta")
 
-
 	}
 	def event = reader.getNextEvent()
 	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
+*/
 
-printer("Done processing data",1)
-
+printer("Finished processing $NumEventsToProcess at ${runtime.getTime()}",1)
 reader.close()
 
-canvas.draw(hW);
-canvas.setFont("HanziPen TC");
-canvas.setTitleSize(72);
-canvas.setAxisTitleSize(72);
-canvas.setAxisLabelSize(76);
-canvas.draw(hW);
-
-def run = "testrun5036"
+def OutFileName = "output_file_histos"
 TDirectory out = new TDirectory()
-out.mkdir('/'+run)
-out.cd('/'+run)
-
+out.mkdir('/'+OutFileName)
+out.cd('/'+OutFileName)
 out.addDataSet(hhel)
 out.addDataSet(hphi)
 out.addDataSet(hq2)
 out.addDataSet(hW)
 out.addDataSet(hxB)
+out.writeFile(run+'.hipo')
 
+/*Shit that does not work for trying to format axes in plots.
+https://github.com/gavalian/groot/wiki/Histograms might have some more helpful info.
 canvas.draw(hW);
 canvas.setFont("HanziPen TC");
 canvas.setTitleSize(72);
 canvas.setAxisTitleSize(72);
 canvas.setAxisLabelSize(76);
 canvas.draw(hW);
-
-
-out.writeFile(run+'.hipo')
+GStyle.getAxisAttributesX().setTitleFontSize(98);
+GStyle.getAxisAttributesX().setLabelFontSize(90);
+EmbeddedCanvas canvas = new EmbeddedCanvas();
+*/
