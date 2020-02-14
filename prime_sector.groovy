@@ -65,7 +65,7 @@ file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 def reader = new HipoDataSource()
 def fname = args[0]
 
-def argsize = args[1]
+def argsize = args
 println "Second arguement is " + argsize
 
 reader.open(fname)
