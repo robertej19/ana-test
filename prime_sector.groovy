@@ -59,11 +59,23 @@ fst = date.getTime()
 file_start_time = date.format("yyyyMMdd_HH-mm-ss")
 
 def reader = new HipoDataSource()
-reader.open(args[0])
+def fname = args[0]
+reader.open(fname)
+
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
+
+#!/opt/coatjava/6.3.1/bin/run-groovy
+import org.jlab.io.hipo.HipoDataSource
+def fname = args[0]
+def hiporeader = new HipoDataSource()
+hiporeader.open(fname)
+def max_event= reader.getSize()
+println "Max Event Size is xxxxxxx : " + max_event
+
+
 
 def processEvent(event,hhel,hphi,hq2,hW) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
