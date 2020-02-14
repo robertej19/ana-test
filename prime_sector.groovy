@@ -121,9 +121,6 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 			def xBjorken = -qvec.mass2()/(2*pro.vect().dot(qvec.vect()))
 			printer("xB is " + xBjorken,0)
 
-			//println "qvec is " + qvec
-			//println "qvec comp is " + -qvec.mass2()
-
 			def pdet = (partb.getShort('status',ipro)/1000).toInteger()==2 ? 'FD':'CD'
 
 			def profi = Math.toDegrees(pro.phi())
@@ -138,18 +135,40 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 
 			def isep0 = epx.mass2()<1 && wvec.mass()>2
 
-			if(isep0){
-				hhel.fill(ihel)
-				hphi.fill(profi)
-				hq2.fill(-qvec.mass2())
-				hW.fill(wvec.mass())
-				hxB.fill(xBjorken)
-				H_xB_Q2.fill(xBjorken,-qvec.mass2())
-			}
+			def pi0s = ipi0s.collect{ig1,ig2->
+				def g1 = LorentzVector.withPID(22,*['px','py','pz'].collect{partb.getFloat(it,ig1)})
+				def g2 = LorentzVector.withPID(22,*['px','py','pz'].collect{partb.getFloat(it,ig2)})
+				if(ele.vect().theta(g1.vect())>8 && ele.vect().theta(g2.vect())>8) {
+					def gg = g1+g2
+					def ggmass = gg.mass()
+					def ispi0 = ggmass<0.2 && ggmass>0.07// && gg.p()>1.5
 
-		 }
+					if(ispi0) {
+						def epggx = epx-gg
+						def thetaXPi = epx.vect().theta(gg.vect())
+						def dpt0 = epggx.px().abs()<0.3 && epggx.py().abs()<0.3
+						def dmisse0 = epggx.e()<1
+						def tt0 = -(pro-target).mass2()
+						def procalc = beam+target-ele-gg
+						def tt1 = -(procalc-target).mass2()
+
+						if(isep0){
+							hhel.fill(ihel)
+							hphi.fill(profi)
+							hq2.fill(-qvec.mass2())
+							hW.fill(wvec.mass())
+							hxB.fill(xBjorken)
+							H_xB_Q2.fill(xBjorken,-qvec.mass2())
+						}
+					}
+					return ispi0
+				}
+			}
+			return false
+		}
 	}
 }
+
 
 def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 	if(CurrentCounter % CountRate == 0){
