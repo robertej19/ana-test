@@ -117,6 +117,7 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 			def wvec = beam+target-ele
 			def qvec = beam-ele
 			def epx = beam+target-ele-pro
+			printer("epx mass squared is:${epx.mass2()}")
 			def xBjorken = -qvec.mass2()/(2*pro.vect().dot(qvec.vect()))
 			printer("xB is " + xBjorken,0)
 
@@ -135,16 +136,16 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 				if(psec==7) psec=1
 			}
 
+			def isep0 = epx.mass2()<1 && wvec.mass()>2
 
-
-
-
-			hhel.fill(ihel)
-			hphi.fill(profi)
-			hq2.fill(-qvec.mass2())
-			hW.fill(wvec.mass())
-			hxB.fill(xBjorken)
-			H_xB_Q2.fill(xBjorken,-qvec.mass2())
+			if(isep0){
+				hhel.fill(ihel)
+				hphi.fill(profi)
+				hq2.fill(-qvec.mass2())
+				hW.fill(wvec.mass())
+				hxB.fill(xBjorken)
+				H_xB_Q2.fill(xBjorken,-qvec.mass2())
+			}
 
 		 }
 	}
@@ -172,7 +173,11 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 
 
 def reader = new HipoDataSource()
-println args
+if (args.size()<2) {
+	printer("You need to include the number of events you want to process in the start command!",1)
+	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000")
+}
+
 def fname = args[0]
 def NumEventsToProcess = args[1].toInteger()
 reader.open(fname)
