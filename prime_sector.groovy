@@ -189,7 +189,7 @@ def CountRate = NumEventsToProcess/10
 printer("Processing $NumEventsToProcess events",1)
 for (int i=0; i < NumEventsToProcess; i++) {
 	evcount.getAndIncrement()
-	screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
+	//screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
 	def event = reader.getNextEvent()
 	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
