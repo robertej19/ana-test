@@ -29,6 +29,9 @@ import org.jlab.io.base.DataEvent
 import org.jlab.io.hipo.HipoDataSource
 import org.jlab.io.hipo.HipoDataSync
 
+GStyle.getAxisAttributesX().setTitleFontSize(98);
+GStyle.getAxisAttributesX().setLabelFontSize(90);
+
 
 MyMods.enable()
 
@@ -241,8 +244,6 @@ printer("Done processing data",1)
 
 reader.close()
 
-GStyle.getAxisAttributesX().setTitleFontSize(98);
-GStyle.getAxisAttributesX().setLabelFontSize(90);
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
