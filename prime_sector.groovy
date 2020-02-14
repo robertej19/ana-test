@@ -191,7 +191,10 @@ for (int i=0; i < NumEventsToProcess; i++) {
 	def event = reader.getNextEvent()
 	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
-printer("Finished processing $NumEventsToProcess at ${runtime.getTime()}",1)
+
+def TotalRunTime = (date.getTime() - FileStartTime)/1000/60
+printer("Finished processing $NumEventsToProcess at ${runtime.getTime()}, 
+	total run time ${TotalRunTime.round(2)} minutes",1)
 reader.close()
 
 def OutFileName = "output_file_histos"
@@ -203,7 +206,7 @@ out.addDataSet(hphi)
 out.addDataSet(hq2)
 out.addDataSet(hW)
 out.addDataSet(hxB)
-out.writeFile(run+'.hipo')
+out.writeFile(OutFileName+'.hipo')
 
 /*Shit that does not work for trying to format axes in plots.
 https://github.com/gavalian/groot/wiki/Histograms might have some more helpful info.
@@ -216,27 +219,4 @@ canvas.draw(hW);
 GStyle.getAxisAttributesX().setTitleFontSize(98);
 GStyle.getAxisAttributesX().setLabelFontSize(90);
 EmbeddedCanvas canvas = new EmbeddedCanvas();
-*/
-
-
-
-/*
-for (int i=0; i < NumEventsToProcess; i++) {
-	evcount.getAndIncrement()
-	if(evcount.get() % count_rate.toInteger() == 0){
-		runtime = new Date()
-		time_diff = (runtime.getTime() - FileStartTime)/1000/60
-		//printer("Total running time in minutes is: ${Math.round(time_diff*10)/10}",2)
-		printer("Total running time in minutes is: ${time_diff.round(2)}",2)
-		events_left = NumEventsToProcess-evcount.get()
-		printer(evcount.get()+" Events have been processed, $events_left files remain",2)
-		time_left = time_diff/evcount.get()*events_left
-		uTS = Math.round(time_left*60+runtime.getTime()/1000)
-		eta = Date.from(Instant.ofEpochSecond(uTS)).format('HH:mm:ss')
-		println("Anticipated finish time is $eta")
-
-	}
-	def event = reader.getNextEvent()
-	processEvent(event,hhel,hphi,hq2,hW,hxB)
-}
 */
