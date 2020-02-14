@@ -70,6 +70,7 @@ def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
 def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
+def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,-1,2)
 
 
 
@@ -78,7 +79,7 @@ println "Max Event Size is xxxxxxx : " + max_event
 
 
 
-def processEvent(event,hhel,hphi,hq2,hW) {
+def processEvent(event,hhel,hphi,hq2,hW,hxB) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
 	def target = LorentzVector.withPID(2212,0,0,0)
 
@@ -159,6 +160,7 @@ def processEvent(event,hhel,hphi,hq2,hW) {
 			hphi.fill(profi)
 			hq2.fill(-qvec.mass2())
 			hW.fill(wvec.mass())
+			hxB.fill(xBjorken)
 
 		 }
 	}
@@ -215,7 +217,7 @@ if (smalltest == 0){
 			printer("event count: "+evcount.get()/10000 + "0 K",2)
 		}
 		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2,hW)
+		processEvent(event,hhel,hphi,hq2,hW,hxB)
 	}
 }
 else {
@@ -238,7 +240,7 @@ else {
 
 		}
 		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2,hW)
+		processEvent(event,hhel,hphi,hq2,hW,hxB)
 	}
 }
 printer("Done processing data",1)
@@ -250,7 +252,7 @@ canvas.setFont("HanziPen TC");
 canvas.setTitleSize(72);
 canvas.setAxisTitleSize(72);
 canvas.setAxisLabelSize(76);
-
+canvas.draw(hW);
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
@@ -261,5 +263,14 @@ out.addDataSet(hhel)
 out.addDataSet(hphi)
 out.addDataSet(hq2)
 out.addDataSet(hW)
+out.addDataSet(hxB)
+
+canvas.draw(hW);
+canvas.setFont("HanziPen TC");
+canvas.setTitleSize(72);
+canvas.setAxisTitleSize(72);
+canvas.setAxisLabelSize(76);
+canvas.draw(hW);
+
 
 out.writeFile(run+'.hipo')
