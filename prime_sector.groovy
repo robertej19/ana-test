@@ -178,8 +178,8 @@ if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
 def evcount = new AtomicInteger()
 evcount.set(0)
 
-//def date = new Date()
-def FileStartTime = new Date.getTime()
+def date = new Date()
+def FileStartTime = new Date
 printer("Processing file at time ${date.format('HH:mm:ss')}",1)
 
 
@@ -192,7 +192,8 @@ for (int i=0; i < NumEventsToProcess; i++) {
 	processEvent(event,hhel,hphi,hq2,hW,hxB)
 }
 
-def TotalRunTime = (date.getTime() - FileStartTime)/1000/60
+endtime = new Date()
+def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
 printer(date.getTime(),2)
 printer(FileStartTime,2)
 printer("Finished processing ${(NumEventsToProcess/1000000).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime} minutes",1)
