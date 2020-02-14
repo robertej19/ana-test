@@ -241,8 +241,8 @@ printer("Done processing data",1)
 
 reader.close()
 
-GStyle.getAxisAttributesX().setTitleFontSize(32);
-GStyle.getAxisAttributesX().setLabelFontSize(28);
+GStyle.getAxisAttributesX().setTitleFontSize(98);
+GStyle.getAxisAttributesX().setLabelFontSize(90);
 
 def run = "testrun5036"
 TDirectory out = new TDirectory()
