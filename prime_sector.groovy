@@ -215,9 +215,9 @@ def FilesToProcess = FileGetter(args[0])
 def NumEventsToProcess = args[1].toInteger()
 printer("The following files have been found: ",1)
 
-for (FileName in FilesToProcess)
-printer(FileName,1)
-
+for (FileName in FilesToProcess){
+	printer("$FileName",1)
+}
 
 for (int i=0; i < FilesToProcess.size(); i++) {
 	def fname = FilesToProcess[i]
