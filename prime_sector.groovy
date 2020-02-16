@@ -224,7 +224,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	reader.open(fname)
 	def NumEventsInFile= reader.getSize().toInteger()
 	if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
-
+	println "num events to process is $NumEventsToProcess"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 
@@ -240,7 +240,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 		evcount.getAndIncrement()
 		screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
 		def event = reader.getNextEvent()
-		processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2)
+		//processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2)
 	}
 
 	endtime = new Date()
