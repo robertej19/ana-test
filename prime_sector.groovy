@@ -212,36 +212,45 @@ if (args.size()<2) {
 
 
 def FilesToProcess = FileGetter(args[0])
-
-def fname = FilesToProcess[0]
-println "File name is $fname \n \n"
 def NumEventsToProcess = args[1].toInteger()
-reader.open(fname)
-def NumEventsInFile= reader.getSize().toInteger()
-if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
+printer("The following files have been found: ",1)
 
-def evcount = new AtomicInteger()
-evcount.set(0)
-
-def date = new Date()
-def FileStartTime = date.getTime()
-printer("Processing file at time ${date.format('HH:mm:ss')}",1)
+for (FileName in FilesToProcess)
+printer(FileName,1)
 
 
+for (int i=0; i < FilesToProcess.size(); i++) {
+	def fname = FilesToProcess[i]
+	reader.open(fname)
+	def NumEventsInFile= reader.getSize().toInteger()
+	if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
 
-def CountRate = NumEventsToProcess/10
-printer("Processing $NumEventsToProcess events",1)
-for (int i=0; i < NumEventsToProcess; i++) {
-	evcount.getAndIncrement()
-	screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
-	def event = reader.getNextEvent()
-	processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2)
+	def evcount = new AtomicInteger()
+	evcount.set(0)
+
+	def date = new Date()
+	def FileStartTime = date.getTime()
+	printer("Starting to process file $fname at ${date.format('HH:mm:ss')}",1)
+
+
+
+	def CountRate = NumEventsToProcess/10
+	printer("Processing $NumEventsToProcess events",1)
+	for (int i=0; i < NumEventsToProcess; i++) {
+		evcount.getAndIncrement()
+		screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
+		def event = reader.getNextEvent()
+		processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2)
+	}
+
+	endtime = new Date()
+	def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
+	printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
+	reader.close()
 }
 
-endtime = new Date()
-def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
-printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
-reader.close()
+//xxxxx
+
 
 def OutFileName = "output_file_histos"
 TDirectory out = new TDirectory()
