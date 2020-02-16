@@ -63,7 +63,7 @@ def FileGetter(FileLocation){
 	def FileList = []
 	def dir = new File(FileLocation)
 	dir.eachFileRecurse (FileType.FILES) { file ->
-		list << file
+		FileList << file
 	}
 	return FileList
 }
