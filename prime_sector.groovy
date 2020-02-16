@@ -28,6 +28,7 @@ import org.jlab.io.base.DataBank
 import org.jlab.io.base.DataEvent
 import org.jlab.io.hipo.HipoDataSource
 import org.jlab.io.hipo.HipoDataSync
+import groovy.io.FileType
 
 MyMods.enable() //I don't know what this does, its from Andrey, don't touch it, it works
 
@@ -53,6 +54,18 @@ def printer(string,override){
 			println(string)
 		}
 	}
+}
+
+
+
+
+def FileGetter(FileLocation){
+	def FileList = []
+	def dir = new File(FileLocation)
+	dir.eachFileRecurse (FileType.FILES) { file ->
+		list << file
+	}
+	return FileList
 }
 
 def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
@@ -197,7 +210,11 @@ if (args.size()<2) {
 	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000",1)
 }
 
-def fname = args[0]
+
+def FilesToProcess = FileGetter(args[0])
+
+def fname = FilesToProcess[0]
+println "File name is $fname \n \n"
 def NumEventsToProcess = args[1].toInteger()
 reader.open(fname)
 def NumEventsInFile= reader.getSize().toInteger()
@@ -209,6 +226,7 @@ evcount.set(0)
 def date = new Date()
 def FileStartTime = date.getTime()
 printer("Processing file at time ${date.format('HH:mm:ss')}",1)
+
 
 
 def CountRate = NumEventsToProcess/10
