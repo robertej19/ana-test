@@ -207,7 +207,7 @@ if (args.size()<2) {
 
 
 def FilesToProcess = FileGetter(args[0])
-def NumEventsToProcess = args[1].toInteger()
+def DesiredNumEventsToProcess = args[1].toInteger()
 printer("The following files have been found: ",1)
 
 for (FileName in FilesToProcess){
@@ -220,7 +220,8 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def fname = FilesToProcess[i]
 	reader.open(fname)
 	def NumEventsInFile= reader.getSize().toInteger()
-	if (NumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
+	def NumEventsToProcess = 0
+	if (DesiredNumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
 	println "num events to process is $NumEventsToProcess"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
