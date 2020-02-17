@@ -215,9 +215,9 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def fname = FilesToProcess[i]
 	reader.open(fname)
 	def NumEventsInFile= reader.getSize().toInteger()
-	def NumEventsToProcess = 0
+	def NumEventsToProcess = DesiredNumEventsToProcess
 	if (DesiredNumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
-	println "$fname has $NumEventsToProcess events, is file number $i of ${FilesToProcess.size()}"
+	println "$fname has $NumEventsToProcess events, is file number ${i+1} of ${FilesToProcess.size()}"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 
