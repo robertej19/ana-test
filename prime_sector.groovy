@@ -56,9 +56,6 @@ def printer(string,override){
 	}
 }
 
-
-
-
 def FileGetter(FileLocation){
 	def FileList = []
 	def dir = new File(FileLocation)
@@ -67,13 +64,6 @@ def FileGetter(FileLocation){
 	}
 	return FileList
 }
-
-def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
-def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
-def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
-def hW = new H1F("Hist_W","W Distribution",1000,0,12)
-def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
-def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",100,0,1.5,100,0,12)
 
 def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 	def beam = LorentzVector.withPID(11,0,0,10.6)
@@ -182,7 +172,6 @@ def processEvent(event,hhel,hphi,hq2,hW,hxB,H_xB_Q2) {
 	}
 }
 
-
 def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 	if(CurrentCounter % CountRate == 0){
 		runtime = new Date()
@@ -200,18 +189,24 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 	}
 }
 
+def hhel = new H1F("Hist_ihel","helicity",7,-2,2)
+def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
+def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
+def hW = new H1F("Hist_W","W Distribution",1000,0,12)
+def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
+def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",100,0,1.5,100,0,12)
+
 if (args.size()<2) {
 	printer("You need to include the number of events you want to process in the start command!",1)
 	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000",1)
 }
 
-
-def FilesToProcess = FileGetter(args[0]).take(4)
+def NumFilesToProcess = args[2]
+def FilesToProcess = FileGetter(args[0]).take(NumFilesToProcess)
 def DesiredNumEventsToProcess = args[1].toInteger()
 printer("The following files have been found: ",1)
-
 for (FileName in FilesToProcess){
-	printer("$FileName",1)
+	printer("$FileName",2)
 }
 
 for (int i=0; i < FilesToProcess.size(); i++) {
@@ -222,15 +217,13 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def NumEventsInFile= reader.getSize().toInteger()
 	def NumEventsToProcess = 0
 	if (DesiredNumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
-	println "num events to process is $NumEventsToProcess"
+	println "$fname has $NumEventsToProcess events, is file number $i of ${FilesToProcess.size()}"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 
 	def date = new Date()
 	def FileStartTime = date.getTime()
 	printer("Starting to process file $fname at ${date.format('HH:mm:ss')}",1)
-
-
 
 	def CountRate = NumEventsToProcess/10
 	printer("Processing $NumEventsToProcess events",1)
