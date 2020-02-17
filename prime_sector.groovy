@@ -196,12 +196,12 @@ def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
 def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",100,0,1.5,100,0,12)
 
-if (args.size()<2) {
-	printer("You need to include the number of events you want to process in the start command!",1)
-	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000",1)
+if (args.size()<3) {
+	printer("You need to include the number of events and files you want to process in the start command!",1)
+	printer("For example, <run-groovy filename.groovy hipo_file_to_process.hipo 1000 10",1)
 }
 
-def NumFilesToProcess = args[2]
+def NumFilesToProcess = args[2].toInteger()
 def FilesToProcess = FileGetter(args[0]).take(NumFilesToProcess)
 def DesiredNumEventsToProcess = args[1].toInteger()
 printer("The following files have been found: ",1)
