@@ -220,7 +220,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def NumEventsInFile= reader.getSize().toInteger()
 	def NumEventsToProcess = DesiredNumEventsToProcess
 	if (DesiredNumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
-	println "$fname has $NumEventsToProcess events, is file number ${i+1} of ${FilesToProcess.size()}"
+	println "\n \n $fname has ${(NumEventsToProcess/Mil).round(2)} events, is file number ${i+1} of ${FilesToProcess.size()}"
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 
@@ -244,8 +244,12 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 
 	TotalRunTime += TotalFileRunTime
 	TotalNumEventsProcessed += NumEventsToProcess
-	printer("Processed ${TotalNumEventsProcessed/Mil} M events, have ${FilesToProcess.size()-i-1} files left to process",1)
-	printer("Total Run Time of ${TotalRunTime.round(2)} minutes,",1)//" approximate finish time at${FilesToProcess.size()/(i+1)} ",1)
+	printer("Processed ${(TotalNumEventsProcessed/Mil).round(2)} M events, have ${FilesToProcess.size()-i-1} files left to process",1)
+
+	def TotalTimeLeft = TotalRunTime*FilesToProcess.size()/(i+1)
+	uTSX = Math.round(TotalTimeLeft*60+endtime.getTime()/1000)
+	def etaTotal = Date.from(Instant.ofEpochSecond(uTSX)).format('HH:mm:ss')
+	printer("Total Run Time of ${TotalRunTime.round(2)} minutes, approximate finish time at${etaTotal} ",1)
 }
 
 //xxxxx
