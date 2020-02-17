@@ -185,7 +185,8 @@ def screen_updater(FileStartTime,CurrentCounter,CountRate,NumTotalCounts){
 		//printer("Total running time in minutes is: ${TimeElapsed.round(2)}",2)
 		printer("${(CurrentCounter/Mil).round(2)}M events have been processed, ${(CountsLeft/Mil).round(2)}M events remain",2)
 		printer("Processing Rate is ${Rate.round(1)} kHz",2)
-		printer("Anticipated finish time is $eta, ${TimeLeft.round(2)} minutes left",1)
+		printer("Anticipated file finish time is $eta, ${TimeLeft.round(2)} minutes left",1)
+		return TimeLeft
 	}
 }
 
@@ -210,6 +211,7 @@ for (FileName in FilesToProcess){
 }
 
 def TotalNumEventsProcessed = 0
+def TotalRunTime = 0
 
 for (int i=0; i < FilesToProcess.size(); i++) {
 	def reader = new HipoDataSource()
@@ -236,11 +238,14 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	}
 
 	endtime = new Date()
-	def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
-	printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
+	def TotalFileRunTime = (endtime.getTime() - FileStartTime)/1000/60
+	printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalFileRunTime.round(2)} minutes",1)
 	reader.close()
+
+	TotalRunTime += TotalFileRunTime
 	TotalNumEventsProcessed += NumEventsToProcess
-	printer("processed $TotalNumEventsProcessed events, have ${FilesToProcess.size()-i-1} files left to process",1)
+	printer("Processed ${TotalNumEventsProcessed/Mil} M events, have ${FilesToProcess.size()-i-1} files left to process",1)
+	printer("Total Run Time of ${TotalRunTime.round(2)} minutes,",1)//" approximate finish time at${FilesToProcess.size()/(i+1)} ",1)
 }
 
 //xxxxx
