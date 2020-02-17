@@ -220,16 +220,15 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def NumEventsInFile= reader.getSize().toInteger()
 	def NumEventsToProcess = DesiredNumEventsToProcess
 	if (DesiredNumEventsToProcess == 0){NumEventsToProcess = NumEventsInFile}
-	println "\n \n $fname has ${(NumEventsToProcess/Mil).round(2)} events, is file number ${i+1} of ${FilesToProcess.size()}"
+	printer("\n \n $fname has ${(NumEventsToProcess/Mil).round(2)} M events, is file number ${i+1} of ${FilesToProcess.size()}",2)
 	def evcount = new AtomicInteger()
 	evcount.set(0)
 
 	def date = new Date()
 	def FileStartTime = date.getTime()
-	printer("Starting to process file $fname at ${date.format('HH:mm:ss')}",1)
+	printer("Process file $fname at ${date.format('HH:mm:ss')}",1)
 
 	def CountRate = NumEventsToProcess/10
-	printer("Processing $NumEventsToProcess events",1)
 	for (int j=0; j < NumEventsToProcess; j++) {
 		evcount.getAndIncrement()
 		screen_updater(FileStartTime,evcount.get(),CountRate.toInteger(),NumEventsToProcess)
@@ -244,7 +243,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 
 	TotalRunTime += TotalFileRunTime
 	TotalNumEventsProcessed += NumEventsToProcess
-	printer("Processed ${(TotalNumEventsProcessed/Mil).round(2)} M events, have ${FilesToProcess.size()-i-1} files left to process",1)
+	printer("Processed ${(i+1)} files, ${(TotalNumEventsProcessed/Mil).round(2)} M events, have ${FilesToProcess.size()-i-1} files left to process",1)
 
 	def TotalTimeLeft = TotalRunTime*(FilesToProcess.size()-i-1)/(i+1)
 	uTSX = Math.round(TotalTimeLeft*60+endtime.getTime()/1000)
