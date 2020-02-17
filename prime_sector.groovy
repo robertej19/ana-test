@@ -206,7 +206,7 @@ if (args.size()<2) {
 }
 
 
-def FilesToProcess = FileGetter(args[0])
+def FilesToProcess = FileGetter(args[0]).take(4)
 def DesiredNumEventsToProcess = args[1].toInteger()
 printer("The following files have been found: ",1)
 
