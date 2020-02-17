@@ -240,7 +240,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
 	reader.close()
 	TotalNumEventsProcessed += NumEventsToProcess
-	println "processed $TotalNumEventsProcessed events, have ${FilesToProcess.size()} files left to process"
+	println "processed $TotalNumEventsProcessed events, have ${FilesToProcess.size()-i-1} files left to process"
 }
 
 //xxxxx
