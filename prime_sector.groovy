@@ -249,7 +249,7 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def TotalTimeLeft = TotalRunTime*FilesToProcess.size()/(i+1)
 	uTSX = Math.round(TotalTimeLeft*60+endtime.getTime()/1000)
 	def etaTotal = Date.from(Instant.ofEpochSecond(uTSX)).format('HH:mm:ss')
-	printer("Total Run Time of ${TotalRunTime.round(2)} minutes, approximate finish time at${etaTotal} ",1)
+	printer("Total Run Time of ${TotalRunTime.round(2)} minutes, approximate finish time at ${etaTotal} ",1)
 }
 
 //xxxxx
