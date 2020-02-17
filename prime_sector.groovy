@@ -209,9 +209,10 @@ for (FileName in FilesToProcess){
 	printer("$FileName",2)
 }
 
+def TotalNumEventsProcessed = 0
+
 for (int i=0; i < FilesToProcess.size(); i++) {
 	def reader = new HipoDataSource()
-	println "FILE INDEX NUMBER IS $i"
 	def fname = FilesToProcess[i]
 	reader.open(fname)
 	def NumEventsInFile= reader.getSize().toInteger()
@@ -238,6 +239,8 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	def TotalRunTime = (endtime.getTime() - FileStartTime)/1000/60
 	printer("Finished processing ${(NumEventsToProcess/Mil).round(2)} M events at ${date.format('HH:mm:ss')},total run time ${TotalRunTime.round(2)} minutes",1)
 	reader.close()
+	TotalNumEventsProcessed += NumEventsToProcess
+	println "processed $TotalNumEventsProcessed"
 }
 
 //xxxxx
