@@ -251,6 +251,11 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 	printer("Total Run Time of ${TotalRunTime.round(2)} minutes, approximate finish time at ${etaTotal} ",1)
 }
 
+def dateX = new Date()
+def FileEndTime = date.getTime()
+printer("Finished processing all files at ${dateX.format('HH:mm:ss')}",1)
+
+
 //xxxxx
 
 
