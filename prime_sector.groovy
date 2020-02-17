@@ -252,7 +252,6 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 }
 
 def dateX = new Date()
-def FileEndTime = date.getTime()
 printer("Finished processing all files at ${dateX.format('HH:mm:ss')}",1)
 
 
