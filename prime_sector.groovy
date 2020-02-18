@@ -195,7 +195,7 @@ def hphi = new H1F("Hist_phi","Phi Distribution",2500,-10,370)
 def hq2 = new H1F("Hist_q2","Q^2 Distribution",1000,0,12)
 def hW = new H1F("Hist_W","W Distribution",1000,0,12)
 def hxB = new H1F("Hist_xB","Bjorken x Distribution",1000,0,1.5)
-def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",100,0,1.5,100,0,12)
+def H_xB_Q2 = new H2F("Hist_xB_Q2" , "Bjorken X vs. Q^2",300,0,1.5,300,0,12)
 
 if (args.size()<3) {
 	printer("You need to include the number of events and files you want to process in the start command!",1)
@@ -253,10 +253,6 @@ for (int i=0; i < FilesToProcess.size(); i++) {
 
 def dateX = new Date()
 printer("Finished processing all files at ${dateX.format('HH:mm:ss')}",1)
-
-
-//xxxxx
-
 
 def OutFileName = "output_file_histos"
 TDirectory out = new TDirectory()
